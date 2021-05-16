@@ -6,6 +6,7 @@ import uvicorn
 from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
+from controllers.stock_controller import StockController
 
 app = FastAPI()
 
@@ -41,9 +42,10 @@ def login_token(data: OAuth2PasswordRequestForm = Depends()):
     return controller.authenticate_user(data.username, data.password)
 
 
-@app.post('/teste')
-def teste_route(username = Depends(login_manager)):
-    return {'teste rota': ''}
+@app.post('/load-stocks')
+def load_stock(stock_file: UploadFile = File(...), username=Depends(login_manager)):
+    controller = StockController()
+    return controller.load_stocks(stock_file.file)
 
 
 if __name__ == '__main__':

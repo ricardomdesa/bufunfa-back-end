@@ -10,8 +10,9 @@ class StockRepository:
 
     @staticmethod
     def add_many(stocks: list):
-        docs = list(map(lambda stock: stock.format_as_dict(), stocks))
-        db.stocks.insert_many(docs)
+        # docs = list(map(lambda stock: stock.format_as_dict(), stocks))
+        db.stocks.delete_many({})
+        db.stocks.insert_many(stocks)
 
     @staticmethod
     def get_all_stocks():
