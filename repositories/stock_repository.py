@@ -4,13 +4,15 @@ from domain.stock import Stock
 
 class StockRepository:
 
-    @staticmethod
-    def add_one(stock: Stock):
-        db.stocks.insert_one(stock.format_as_dict())
+    def __init__(self, username: str):
+        self.username = username
 
-    @staticmethod
-    def add_many(stocks: list):
-        # docs = list(map(lambda stock: stock.format_as_dict(), stocks))
+    def add_one(self, stock: Stock):
+        doc = stock.format_as_dict()
+        doc['username'] = self.username
+        db.stocks.insert_one(doc)
+
+    def add_many(self, stocks: list):
         db.stocks.delete_many({})
         db.stocks.insert_many(stocks)
 

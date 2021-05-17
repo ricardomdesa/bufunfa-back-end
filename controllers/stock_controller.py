@@ -5,8 +5,8 @@ from presenters.stock_presenter import StockPresenter
 
 class StockController:
 
-    def __init__(self):
-        self.stock_repo = StockRepository()
+    def __init__(self, username: str):
+        self.stock_repo = StockRepository(username)
         self.stock_presenter = StockPresenter()
 
     def load_stocks(self, stock_file):

@@ -21,7 +21,9 @@ class LoadStocks:
     def run(self, stock_file):
         try:
             df = pd.read_excel(stock_file, sheet_name='Stocks', dtype=str)
+            df = df[['stock_name', 'stock_code', 'stock_current_price']]
             df[['stock_current_price']] = df[['stock_current_price']].astype(float)
+            df['username'] = self.stock_repo.username
             docs = df.to_dict('records')
             self.stock_repo.add_many(docs)
             return self.stock_presenter.respond(docs)
