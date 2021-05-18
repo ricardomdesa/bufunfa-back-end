@@ -7,6 +7,7 @@ from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
 from controllers.stock_controller import StockController
+from controllers.transaction_controller import TransactionController
 
 app = FastAPI()
 
@@ -44,8 +45,14 @@ def login_token(data: OAuth2PasswordRequestForm = Depends()):
 
 @app.post('/load-stocks')
 def load_stock(stock_file: UploadFile = File(...), username=Depends(login_manager)):
-    controller = StockController()
+    controller = StockController(username.username)
     return controller.load_stocks(stock_file.file)
+
+
+@app.post('/load-transactions')
+def load_transactions(cart_file: UploadFile = File(...), username=Depends(login_manager)):
+    controller = TransactionController(username.username)
+    return controller.load_transactions(cart_file.file)
 
 
 if __name__ == '__main__':

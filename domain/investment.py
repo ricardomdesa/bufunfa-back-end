@@ -1,5 +1,9 @@
 class Investment:
-    def __init__(self, type: str, buy_date: str, value: float):
-        self.type = type
-        self.buy_date = buy_date
-        self.value = value
+    def __init__(self, username: str, corretora: str, codigo: str, valor_medio: float, quantidade: int, tipo: str):
+        self.username = username
+        self.corretora = corretora
+        self.codigo = codigo
+        self.valor_medio = valor_medio
+        self.quantidade = quantidade
+        self.tipo = tipo
+
