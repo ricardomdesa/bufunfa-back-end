@@ -16,10 +16,9 @@ class StockRepository:
         db.stocks.delete_many({})
         db.stocks.insert_many(stocks)
 
-    @staticmethod
-    def get_all_stocks():
-        stocks = db.stocks.find({})
-        return [Stock(stock['name'], stock['code'], stock['current_price']) for stock in stocks] if stocks else []
+    def get_stocks_by_username(self):
+        stocks = db.stocks.find({'username': self.username})
+        return [Stock(stock['stock_name'], stock['stock_code'], stock['stock_current_price']) for stock in stocks] if stocks else []
 
     @staticmethod
     def get_stock_by_code(code: str):
