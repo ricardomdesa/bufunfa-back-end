@@ -20,11 +20,13 @@ class StockRepository:
         stocks = db.stocks.find({'username': self.username})
         return [Stock(stock['stock_name'], stock['stock_code'], stock['stock_current_price']) for stock in stocks] if stocks else []
 
-    @staticmethod
-    def get_stock_by_code(code: str):
-        stock = db.stocks.find_one({"code": code})
-        return Stock(stock['name'], stock['code'], stock['current_price']) if stock else None
+    def get_stock_by_code(self, code: str):
+        stock = db.stocks.find_one({"username":self.username, "stock_code": code})
+        return Stock(stock['stock_name'], stock['stock_code'], stock['stock_current_price']) if stock else None
 
-    @staticmethod
-    def remove_by_code(code: str):
-        db.stocks.delete_many({"code": code})
+    def update_all_by_code(self, stock_dict: dict):
+        for code, value in stock_dict.items():
+            db.stocks.update_one({'username': self.username, 'stock_code': code}, {'$set': {"stock_current_price": value}})
+
+    def remove_by_code(self, code: str):
+        db.stocks.delete_many({"username": self.username, "stock_code": code})
