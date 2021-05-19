@@ -8,6 +8,7 @@ from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
 from controllers.stock_controller import StockController
 from controllers.transaction_controller import TransactionController
+from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
 
 app = FastAPI()
 
@@ -53,6 +54,12 @@ def load_stock(stock_file: UploadFile = File(...), username=Depends(login_manage
 def load_transactions(cart_file: UploadFile = File(...), username=Depends(login_manager)):
     controller = TransactionController(username.username)
     return controller.load_transactions(cart_file.file)
+
+
+@app.post('/fetch-current-prices')
+def fetch_current_prices(username=Depends(login_manager)):
+    controller = FetchCurrentStockPriceController(username.username)
+    return controller.fetch_current_stock_price()
 
 
 if __name__ == '__main__':
