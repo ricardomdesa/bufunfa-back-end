@@ -1,8 +1,8 @@
+import uvicorn
 from fastapi import FastAPI, File, UploadFile, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
-import uvicorn
 from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
@@ -63,7 +63,5 @@ def fetch_current_prices(username=Depends(login_manager)):
 
 
 if __name__ == '__main__':
-    print('Bufunfa Back-end')
     uvicorn.run("main:app", host="localhost", port=8001, reload=True)
-    print(origins)
 
