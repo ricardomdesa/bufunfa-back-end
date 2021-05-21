@@ -1,4 +1,6 @@
 from datetime import date
+from domain.stock import Stock
+from typing import List
 
 
 class MockStockRepo:
@@ -7,8 +9,8 @@ class MockStockRepo:
         self.__stocks = []
         self.username = username
 
-    def update_all_by_code(self, stocks, data: date):
-        self.__stocks = list(map(lambda stock: stock.set_last_update(data), stocks))
+    def update_all_by_code(self, stocks: List[Stock]):
+        self.__stocks = list(map(lambda stock: stock, stocks))
         print(self.__stocks)
 
     @staticmethod

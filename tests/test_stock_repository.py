@@ -1,3 +1,4 @@
+from repositories.stock_repository import StockRepository
 from domain.stock import Stock
 from unittest import TestCase
 from datetime import datetime, date
@@ -9,11 +10,15 @@ class TestStockRepository(TestCase):
     def test_add_many_stocks(self):
         stock_list = []
 
-        stock_list.append(Stock('Teste1', 'TSTE1', 21.0, date.today()))
-        stock_list.append(Stock('Teste2', 'TSTE2', 9.65, date.today()))
+        stock_list.append(Stock('Teste1', 'TSTE1', 21.0).format_as_dict())
+        stock_list.append(Stock('Teste2', 'TSTE2', 9.65).format_as_dict())
 
-        stock_repo = MockStockRepo('teste')
+        stock_repo = StockRepository('teste')
         stock_repo.add_many(stock_list)
+        stocks_from_repo = stock_repo.get_stocks()
+        print('repo --', stocks_from_repo)
+        print('list --', stock_list)
+        assert stocks_from_repo == stock_list
 
     def test_get_all_stocks(self):
         stock_list = MockStockRepo.get_all_stocks()
@@ -28,6 +33,7 @@ class TestStockRepository(TestCase):
     def test_update_all_by_code(self):
         dict_inicial = {'BBDC3.SA': 1, 'TRIS3.SA': 1, 'RANI3.SA': 1}
         dict_update = {'BBDC3.SA': 22.01, 'TRIS3.SA': 10.7, 'RANI3.SA': 8.2}
+
         stock_repo = MockStockRepo('teste')
         stock_repo.add_many(dict_inicial)
         stock_repo.update_all_by_code(dict_update, date.today())
