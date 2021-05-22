@@ -9,7 +9,7 @@ from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
 from controllers.stock_controller import StockController
-from controllers.load_investment_controller import InvestmentController
+from controllers.load_investment_controller import LoadInvestmentController
 from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
 
 app = FastAPI()
@@ -54,8 +54,8 @@ def load_stock(stock_file: UploadFile = File(...), username=Depends(login_manage
 
 @app.post('/load-investments')
 def load_transactions(investment_file: UploadFile = File(...), username=Depends(login_manager)):
-    controller = InvestmentController(username.username)
-    return controller.load_transactions(investment_file.file)
+    controller = LoadInvestmentController(username.username)
+    return controller.load_investments(investment_file.file)
 
 
 @app.post('/fetch-current-prices')

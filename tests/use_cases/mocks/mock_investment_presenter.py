@@ -7,4 +7,4 @@ class MockInvestmentPresenter:
 
     @staticmethod
     def respond_with_error():
-        return 'error'
+        return b'{"message": "Erro ao buscar lista de investmentos"}'
