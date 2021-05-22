@@ -3,12 +3,12 @@ from use_cases.load_investments import LoadInvestments
 from presenters.load_investment_presenter import LoadInvestmentPresenter
 
 
-class InvestmentController:
+class LoadInvestmentController:
 
     def __init__(self, username: str):
-        self.transaction_repo = InvestmentRepository(username)
-        self.transaction_presenter = LoadInvestmentPresenter()
+        self.investment_repo = InvestmentRepository(username)
+        self.investment_presenter = LoadInvestmentPresenter()
 
-    def load_transactions(self, file):
-        return LoadInvestments(self.transaction_repo, self.transaction_presenter).run(file)
+    def load_investments(self, file):
+        return LoadInvestments(self.investment_repo, self.investment_presenter).run(file)
 

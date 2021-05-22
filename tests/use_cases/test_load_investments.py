@@ -6,8 +6,10 @@ from tests.use_cases.mocks.mock_investment_presenter import MockInvestmentPresen
 
 class TestLoadTransactions(TestCase):
     def test_run(self):
-        repo = MockInvestmentRepo('username')
+        repo = MockInvestmentRepo('teste')
         load_transaction = LoadInvestments(repo, MockInvestmentPresenter())
         load_transaction.run('../files/LoadStocks_test_t.xlsx')
-        lista = repo.get_all_transaction()
+        lista = repo.get_investments_by_username()
+        print(lista)
+        print(lista[0].format_as_dict())
         self.assertEqual(2, len(lista))
