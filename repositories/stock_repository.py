@@ -25,9 +25,11 @@ class StockRepository:
         db.stocks.insert_many(stock_list)
 
     def get_stocks(self):
-        return db.stocks.find({'username': self.username})
-        # return stocks
-        # return [Stock(stock['stock_name'], stock['stock_code'], stock['stock_current_price']) for stock in stocks] if stocks else []
+        stocks = db.stocks.find({'username': self.username})
+        return list(map(lambda stock: Stock(stock['stock_name'],
+                                            stock['stock_code'],
+                                            stock['stock_current_price'],
+                                            stock['stock_last_update']), stocks))
 
     def get_stock_by_code(self, code: str):
         stock = db.stocks.find_one({"username": self.username, "stock_code": code})
@@ -39,10 +41,12 @@ class StockRepository:
 
     @staticmethod
     def __set_date(dici, date):
-        # breakpoint()
         ret = dici
         ret['stock_last_update'] = date
         return ret
 
     def remove_by_code(self, code: str):
         db.stocks.delete_many({"username": self.username, "stock_code": code})
+
+    def remove_all(self):
+        db.stocks.delete_many({"username": self.username})

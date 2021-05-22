@@ -1,29 +1,28 @@
-from repositories.stock_repository import StockRepository
-from domain.stock import Stock
+from datetime import date
 from unittest import TestCase
-from datetime import datetime, date
+
+from domain.stock import Stock
+from repositories.stock_repository import StockRepository
 from tests.use_cases.mocks.mock_stock_repo import MockStockRepo
 
 
 class TestStockRepository(TestCase):
 
     def test_add_many_stocks(self):
-        stock_list = []
-
-        stock_list.append(Stock('Teste1', 'TSTE1', 21.0).format_as_dict())
-        stock_list.append(Stock('Teste2', 'TSTE2', 9.65).format_as_dict())
+        stock_list = [Stock('Teste1', 'TSTE1', 21.0).format_as_dict(),
+                      Stock('Teste2', 'TSTE2', 9.65).format_as_dict()]
 
         stock_repo = StockRepository('teste')
         stock_repo.add_many(stock_list)
         stocks_from_repo = stock_repo.get_stocks()
-        print('repo --', stocks_from_repo)
-        print('list --', stock_list)
-        assert stocks_from_repo == stock_list
+        stock_repo.remove_all()
+        assert len(stocks_from_repo) == 2
+        assert isinstance(stocks_from_repo[0], Stock)
 
     def test_get_all_stocks(self):
-        stock_list = MockStockRepo.get_all_stocks()
-        StockRepo.remove_by_code('TSTE1')
-        assert len(stock_list) == 1
+        stock_list = StockRepository('ricardo').get_stocks()
+        assert len(stock_list) == 18
+        assert isinstance(stock_list[0], Stock)
 
     def test_get_by_code(self):
         stock_repo = MockStockRepo('ricardo')
@@ -49,4 +48,3 @@ class TestStockRepository(TestCase):
         stock_repo.update_all_by_code(stocks_update, date.today())
         stock_from_repo = stock_repo.get_stock_by_code('TRIS3.SA')
         self.assertEqual(date.today(), stock_from_repo.last_update)
-
