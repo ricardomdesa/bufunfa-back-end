@@ -19,7 +19,7 @@ class FetchCurrentStockPrices:
             stocks_df = self.__fetch_data_from_finance([stock.code for stock in stocks])
             stocks_dict = self.__get_dict_from_pdr_yahoo(stocks_df)
             self.stock_repo.update_all_by_code(stocks_dict)
-            return self.fetch_prices_presenter.respond([])
+            return self.fetch_prices_presenter.respond(len(stocks_dict))
         except Exception as error:
             raise error
             return self.fetch_prices_presenter.respond_with_error()
