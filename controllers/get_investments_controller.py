@@ -16,4 +16,4 @@ class GetInvestmentController:
 
     def get_investments(self):
         use_case = GetInvestments(self.__investment_repo, self.__stock_repo, self.__presenter)
-        use_case.run()
+        return use_case.run()
