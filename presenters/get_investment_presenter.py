@@ -8,7 +8,7 @@ class GetInvestmentPresenter:
     def respond(investments):
         response = Response()
         response.status_code = status.HTTP_200_OK
-        response.body = json.dumps(dict(investments_list=investments)).encode("utf-8")
+        response.body = json.dumps({'investments_list':investments}).encode("utf-8")
         return response
 
     @staticmethod

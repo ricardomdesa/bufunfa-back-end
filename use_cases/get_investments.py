@@ -17,10 +17,9 @@ class GetInvestments:
     def run(self):
         try:
             investments = self.__investment_repo.get_investments_by_username()
-
             updated_investments = list(map(lambda investment: investment.complement_with_stock_current_price(
                 self.__stock_repo.get_stock_by_code(investment.codigo).current_price), investments))
-
-            return self.__presenter.respond(updated_investments)
+            list_to_presenter = list(map(lambda investment: investment.format_as_dict(), updated_investments))
+            return self.__presenter.respond(list_to_presenter)
         except Exception:
             return self.__presenter.respond_with_error()
