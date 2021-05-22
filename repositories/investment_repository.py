@@ -2,26 +2,48 @@ from database.mongodb import db
 from domain.investment import Investment
 
 
-class TransactionRepository:
+class InvestmentRepository:
 
     def __init__(self, username: str):
         self.username = username
 
-    def add_many(self, transactions: list):
+    def add_many(self, investments: list):
         self.remove_all_by_username()
-        db.transactions.insert_many(transactions)
+        db.investments.insert_many(investments)
 
-    def get_stocks_by_username(self):
-        transactions = db.transactions.find_many({'username': self.username})
-        return [Investment(transaction['username'],
-                           transaction['corretora'],
-                           transaction['codigo'],
-                           transaction['valor_medio'],
-                           transaction['quantidade'],
-                           transaction['tipo']) for transaction in transactions] if transactions else []
+    def get_investments_by_username(self):
+        investments = db.investments.find({'username': self.username})
+        return [Investment(investment['username'],
+                           investment['corretora'],
+                           investment['codigo'],
+                           investment['valor_medio'],
+                           investment['quantidade'],
+                           investment['tipo']
+                           ) for investment in investments] if investments else []
+
+    def update_all_by_username(self, investments: list):
+        for inv in investments:
+            filter = {"username": self.username, "codigo": inv['codigo']}
+
+            new_values = {"$set": {'corretora': inv['corretora'],
+                                   'valor_medio': inv['valor_medio'],
+                                   'quantidade': inv['quantidade'],
+                                   'tipo': inv['tipo']}}
+
+            db.investments.update_one(filter, new_values)
+
+    def get_investment_by_code(self, code: str):
+        investments = db.investments.find({'username': self.username, 'codigo': code})
+        return [Investment(investment['username'],
+                           investment['corretora'],
+                           investment['codigo'],
+                           investment['valor_medio'],
+                           investment['quantidade'],
+                           investment['tipo']
+                           ) for investment in investments] if investments else []
 
     def remove_by_code(self, code: str):
-        db.stocks.delete_many({"username": self.username, "code": code})
+        db.investments.delete_many({"username": self.username, "codigo": code})
 
     def remove_all_by_username(self):
-        db.transactions.delete_many({'username': self.username})
+        db.investments.delete_many({'username': self.username})

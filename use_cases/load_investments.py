@@ -12,7 +12,7 @@ def _seekable(self):
 SpooledTemporaryFile.seekable = _seekable
 
 
-class LoadTransactions:
+class LoadInvestments:
 
     def __init__(self, transaction_repo, transaction_presenter):
         self.transaction_repo = transaction_repo

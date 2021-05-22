@@ -1,5 +1,5 @@
 from unittest import TestCase
-from use_cases.load_transactions import LoadTransactions
+from use_cases.load_investments import LoadInvestments
 from tests.use_cases.mocks.mock_transaction_repo import MockTransactionRepo
 from tests.use_cases.mocks.mock_transaction_presenter import MockTransactionPresenter
 
@@ -7,7 +7,7 @@ from tests.use_cases.mocks.mock_transaction_presenter import MockTransactionPres
 class TestLoadTransactions(TestCase):
     def test_run(self):
         repo = MockTransactionRepo('username')
-        load_transaction = LoadTransactions(repo, MockTransactionPresenter())
+        load_transaction = LoadInvestments(repo, MockTransactionPresenter())
         load_transaction.run('../files/LoadStocks_test_t.xlsx')
         lista = repo.get_all_transaction()
         self.assertEqual(2, len(lista))
