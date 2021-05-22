@@ -1,3 +1,5 @@
+import datetime
+
 import pandas as pd
 import logging
 from tempfile import SpooledTemporaryFile
@@ -23,10 +25,10 @@ class LoadStocks:
             df = pd.read_excel(stock_file, sheet_name='Stocks', dtype=str)
             df = df[['stock_name', 'stock_code', 'stock_current_price']]
             df[['stock_current_price']] = df[['stock_current_price']].astype(float)
-            df['username'] = self.stock_repo.username
+            date = datetime.date.today()
+            df['stock_last_update'] = pd.to_datetime(date).strftime('%Y-%m-%d')
             docs = df.to_dict('records')
             self.stock_repo.add_many(docs)
             return self.stock_presenter.respond(docs)
         except Exception as e:
-            raise Exception(e)
             return self.stock_presenter.respond_with_error()

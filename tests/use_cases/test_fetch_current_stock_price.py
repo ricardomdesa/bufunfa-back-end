@@ -2,7 +2,7 @@ from unittest import TestCase
 from repositories.stock_repository import StockRepository
 from presenters.fetch_stock_prices_presenter import FetchStockPricesPresenter
 from use_cases.fetch_current_stock_prices import FetchCurrentStockPrices
-from fastapi import Response, status
+from fastapi import status
 
 
 class TestFetchCurrentStockPrices(TestCase):

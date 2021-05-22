@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "ce8d56df-1926-4074-8043-149ab92cee09",
+		"name": "teste B",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "{{url}}/login",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{passwd}}",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "access",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "password_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "ricardo",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "teste",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8001/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "load-stocks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "stock_file",
+							"type": "file",
+							"src": "/Users/shopee/Documents/projetos/bufunfa_backend/tests/files/LoadStocks_test_s.xlsx"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8001/load-stocks",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"load-stocks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch_prices",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8001/fetch-current-prices",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"fetch-current-prices"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
