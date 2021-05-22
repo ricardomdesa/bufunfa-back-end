@@ -7,7 +7,7 @@ from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
 from controllers.stock_controller import StockController
-from controllers.investment_controller import InvestmentController
+from controllers.load_investment_controller import InvestmentController
 from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
 
 app = FastAPI()

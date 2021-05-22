@@ -2,7 +2,7 @@ import json
 from fastapi import Response, status
 
 
-class TransactionPresenter:
+class LoadInvestmentPresenter:
 
     @staticmethod
     def respond(docs):
