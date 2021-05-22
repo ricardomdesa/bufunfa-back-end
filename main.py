@@ -3,11 +3,13 @@ from fastapi import FastAPI, File, UploadFile, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
+
+from controllers.get_investments_controller import GetInvestmentController
 from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
 from controllers.stock_controller import StockController
-from controllers.investment_controller import InvestmentController
+from controllers.load_investment_controller import LoadInvestmentController
 from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
 
 app = FastAPI()
@@ -50,16 +52,22 @@ def load_stock(stock_file: UploadFile = File(...), username=Depends(login_manage
     return controller.load_stocks(stock_file.file)
 
 
-@app.post('/load-transactions')
-def load_transactions(cart_file: UploadFile = File(...), username=Depends(login_manager)):
-    controller = InvestmentController(username.username)
-    return controller.load_transactions(cart_file.file)
+@app.post('/load-investments')
+def load_transactions(investment_file: UploadFile = File(...), username=Depends(login_manager)):
+    controller = LoadInvestmentController(username.username)
+    return controller.load_investments(investment_file.file)
 
 
 @app.post('/fetch-current-prices')
 def fetch_current_prices(username=Depends(login_manager)):
     controller = FetchCurrentStockPriceController(username.username)
     return controller.fetch_current_stock_price()
+
+
+@app.post('/get-investments')
+def get_investment(username=Depends(login_manager)):
+    controller = GetInvestmentController(username.username)
+    return controller.get_investments()
 
 
 if __name__ == '__main__':

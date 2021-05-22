@@ -17,6 +17,7 @@ class Investment:
             raise error
         self.__valor_investido_atual = None
         self.__rendimento = None
+        self.__current_stock_price = None
 
     def __validate_values(self):
         is_stock_code_valid = self.validate_stock_code()
@@ -32,6 +33,8 @@ class Investment:
     def complement_with_stock_current_price(self, current_stock_price: float):
         self.__valor_investido_atual = round(self.quantidade * current_stock_price, 2)
         self.__rendimento = round((self.__valor_investido_atual / self.__valor_investido) - 1, 4)
+        self.__current_stock_price = current_stock_price
+        return self
 
     def validate_stock_code(self):
         valid_ends = self.codigo.endswith('.SA')
@@ -54,5 +57,6 @@ class Investment:
             "tipo": self.tipo,
             "valor_investido": self.__valor_investido,
             "valor_investido_atual": self.__valor_investido_atual,
-            "rendimento": self.__rendimento
+            "rendimento": self.__rendimento,
+            'current_stock_price': self.__current_stock_price
         }

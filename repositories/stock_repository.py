@@ -29,7 +29,7 @@ class StockRepository:
         return list(map(lambda stock: Stock(stock['stock_name'],
                                             stock['stock_code'],
                                             stock['stock_current_price'],
-                                            stock['stock_last_update']), stocks))
+                                            stock['stock_last_update']), stocks)) if stocks else []
 
     def get_stock_by_code(self, code: str):
         stock = db.stocks.find_one({"username": self.username, "stock_code": code})
