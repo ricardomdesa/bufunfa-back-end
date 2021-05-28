@@ -1,7 +1,6 @@
 from unittest import TestCase
 from use_cases.load_stocks import LoadStocks
 from tests.use_cases.mocks.mock_stock_repo import MockStockRepo
-from tests.use_cases.mocks.mock_stock_presenter import MockStockPresenter
 from presenters.stock_presenter import StockPresenter
 
 
