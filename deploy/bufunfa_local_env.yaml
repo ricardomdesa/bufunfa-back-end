@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  bf-mongodb:
+    image: mongo
+    container_name: bf-mongodb
+    hostname: mongodb
+    ports:
+      - "27018:27017"
+    restart: always
+    volumes:
+      - mongo_personal_volume:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_DATABASE=bufunfa
+    networks:
+      default:
+        aliases:
+          - mongodb
+
+  bf-api:
+    container_name: bufunfa-api
+    build:
+      dockerfile: ./deploy/api.dockerfile
+      context: ..
+    restart: always
+    env_file:
+      - .env.api
+    networks:
+      - default
+    ports:
+      - "8002:8002"
+
+networks:
+  default: {}
+
+volumes:
+  mongo_personal_volume:
+    external: true
