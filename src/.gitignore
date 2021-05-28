@@ -1,0 +1,10 @@
+.env
+
+../.idea
+
+__pycache__
+
+tests/files/*.xlsx
+
+.pytest_cache
+
