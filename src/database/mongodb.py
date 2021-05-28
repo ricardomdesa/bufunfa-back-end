@@ -13,7 +13,7 @@ def create_connection():
         connectTimeoutMS=240000,
         username=DB_USER,
         password=DB_PASSWORD,
-        authSource=DB_AUTHENTICATION_DATABASE).testesb
+        authSource=DB_AUTHENTICATION_DATABASE).bufunfa
     logging.info(f"Connected to mongo: {DB_HOST}")
     return db_connection
 

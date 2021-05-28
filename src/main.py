@@ -70,6 +70,6 @@ def get_investment(username=Depends(login_manager)):
     return controller.get_investments()
 
 
-if __name__ == '__main__':
-    uvicorn.run("main:app", host="localhost", port=8001, reload=True)
+# if __name__ == '__main__':
+#     uvicorn.run("main:app", host="localhost", port=8002, reload=True)
 
