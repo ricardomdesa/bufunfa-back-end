@@ -1,6 +1,11 @@
+from dataclasses import dataclass, asdict
+
+
+@dataclass(frozen=True)
 class User:
-    def __init__(self, username: str, password: str, name: str):
-        self.username = username
-        self.password = password
-        self.name = name
-        
+    username: str
+    password: str
+    name: str
+
+    def format_as_dict(self):
+        return asdict(self)
