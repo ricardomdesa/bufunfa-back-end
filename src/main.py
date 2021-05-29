@@ -1,10 +1,11 @@
 import uvicorn
-from fastapi import FastAPI, File, UploadFile, Depends, Request
+from fastapi import FastAPI, File, UploadFile, Depends, Request, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
 
 from controllers.get_investments_controller import GetInvestmentController
+from controllers.signup_controller import SignUpController
 from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
 from controllers.authentication_controller import AuthenticationController
@@ -68,6 +69,12 @@ def fetch_current_prices(username=Depends(login_manager)):
 def get_investment(username=Depends(login_manager)):
     controller = GetInvestmentController(username.username)
     return controller.get_investments()
+
+
+@app.post('/signup')
+def signup(data: dict = Body(...)):
+    controller = SignUpController()
+    return controller.signup(data)
 
 
 # if __name__ == '__main__':
