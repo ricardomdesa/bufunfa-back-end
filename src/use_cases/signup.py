@@ -36,12 +36,12 @@ class SignUp:
 
     @staticmethod
     def __validate_username_size(data):
-        if len(data['username']) <= 4:
+        if len(data['username']) < 5:
             raise InvalidUserValuesError('Username ter mais que 3 digitos')
 
     @staticmethod
     def __validate_name_size(data):
-        if len(data['name']) <= 2:
+        if len(data['name']) < 2:
             raise InvalidUserValuesError('Nome ter mais que 1 digito')
 
     def __check_if_username_exists(self, data):
