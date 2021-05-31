@@ -34,9 +34,10 @@ class LoadInvestments:
             return self.investment_presenter.respond_with_error()
 
     def __format_columns(self, df):
-        #TODO: implementar logica para adicionar .SA se nao tiver
         df[['valor_medio']] = df[['valor_medio']].astype(float)
         df[['quantidade']] = df[['quantidade']].astype(int)
+        df[['codigo']] = df[['codigo']].astype(str)
+        df[['codigo']] = df.codigo.apply(lambda code: code + '.SA' if '.SA' not in code else code)
         df['username'] = self.investment_repo.username
         return df
 
