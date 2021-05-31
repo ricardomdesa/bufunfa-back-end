@@ -21,5 +21,6 @@ class GetInvestments:
                 self.__stock_repo.get_stock_by_code(investment.codigo).current_price), investments))
             list_to_presenter = list(map(lambda investment: investment.format_as_dict(), updated_investments))
             return self.__presenter.respond(list_to_presenter)
-        except Exception:
+        except Exception as e:
+            raise e
             return self.__presenter.respond_with_error()
