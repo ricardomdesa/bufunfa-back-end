@@ -1,10 +1,18 @@
 from database.mongodb import db
 from domain.investment import Investment
+from singleton_decorator import singleton
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 
+@singleton
 class InvestmentRepository:
 
-    def __init__(self, username: str):
+    def __init__(self):
+        self.username = ""
+
+    def set_username(self, username: str):
         self.username = username
 
     def add_many(self, investments: list):
@@ -13,6 +21,7 @@ class InvestmentRepository:
 
     def get_investments_by_username(self):
         investments = db.investments.find({'username': self.username})
+        investments = list(map(lambda item: item, investments))
         return [Investment(investment['username'],
                            investment['corretora'],
                            investment['codigo'],

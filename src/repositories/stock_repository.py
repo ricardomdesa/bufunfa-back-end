@@ -6,7 +6,10 @@ from domain.stock import Stock
 
 class StockRepository:
 
-    def __init__(self, username: str):
+    def __init__(self):
+        self.username = ""
+
+    def set_username(self, username: str):
         self.username = username
 
     def add_one(self, stock: Stock):

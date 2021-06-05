@@ -5,8 +5,11 @@ from presenters.fetch_stock_prices_presenter import FetchStockPricesPresenter
 
 class FetchCurrentStockPriceController:
 
-    def __init__(self, username: str):
-        self.stock_repo = StockRepository(username)
+    def __init__(self):
+        self.stock_repo = StockRepository()
+
+    def set_username(self, username: str):
+        self.stock_repo.set_username(username)
 
     def fetch_current_stock_price(self):
         return FetchCurrentStockPrices(self.stock_repo, FetchStockPricesPresenter()).run()
