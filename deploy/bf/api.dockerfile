@@ -2,7 +2,7 @@ FROM python:3.8.8-slim-buster
 
 WORKDIR /app
 
-ADD ./src/requirements.txt .
+ADD ../src/requirements.txt .
 
 RUN python3 -m pip install --upgrade pip
 
