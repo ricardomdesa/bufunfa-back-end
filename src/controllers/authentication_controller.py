@@ -17,7 +17,7 @@ class AuthenticationController():
         if user:
             if verify_password(user.password, password):
                 access_token = self.__login_manager.create_access_token(
-                    data={'sub': username}, expires=timedelta(hours=1))
+                    data={'sub': username}, expires=timedelta(hours=4))
                 return self.__presenter.respond(access_token)
             else:
                 return self.__presenter.respond_with_error(f"Invalid password for user: {user.username}")
