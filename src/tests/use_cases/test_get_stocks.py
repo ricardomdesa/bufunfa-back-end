@@ -7,7 +7,7 @@ class MockRepo:
     def __init__(self):
         self.__db = STOCK_MOCK
 
-    def get_stocks_by_username(self):
+    def get_stocks(self):
         return self.__db
 
 
