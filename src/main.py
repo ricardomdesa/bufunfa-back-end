@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
 
 from controllers.get_investments_controller import GetInvestmentController
+from controllers.get_stock_controller import GetStockController
 from controllers.signup_controller import SignUpController
 from environment import WEBAPP_URL, SECRET
 from repositories.user_repository import UserRepository
@@ -69,6 +70,12 @@ def fetch_current_prices(username=Depends(login_manager)):
 def get_investment(username=Depends(login_manager)):
     controller = GetInvestmentController(username.username)
     return controller.get_investments()
+
+
+@app.post('/get-stocks')
+def get_stocks(username=Depends(login_manager)):
+    controller = GetStockController(username.username)
+    return controller.get_stocks()
 
 
 @app.post('/signup')
