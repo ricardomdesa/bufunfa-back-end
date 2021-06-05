@@ -23,8 +23,8 @@ services:
   bf-api:
     container_name: bufunfa-api
     build:
-      dockerfile: ./deploy/api.dockerfile
-      context: ..
+      dockerfile: ./deploy/bf/api.dockerfile
+      context: ../../
     restart: always
     env_file:
       - .env.api
@@ -33,9 +33,26 @@ services:
     ports:
       - "8002:8002"
 
+  bf-front:
+    volumes:
+      - bf_front_dist_volume:/usr/share/nginx/html
+    container_name: bufunfa-front
+    build:
+      dockerfile: deploy/bf/nginx.dockerfile
+      context: ../../
+    restart: always
+    env_file:
+      - .env.front
+    networks:
+      - default
+    ports:
+      - "8082:8082"
+
 networks:
   default: {}
 
 volumes:
   mongo_personal_volume:
+    external: true
+  bf_front_dist_volume:
     external: true
