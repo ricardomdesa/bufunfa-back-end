@@ -9,8 +9,8 @@ class Mock_Presenter:
     def respond(self, _):
         return _
 
-    def respond_with_error(self):
-        return "error"
+    def respond_with_error(self, error):
+        return error
 
 
 def test_dashboard_run():
