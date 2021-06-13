@@ -1,26 +1,31 @@
+from functools import reduce
+
 from singleton_decorator import singleton
 
-from repositories.investment_repository import InvestmentRepository
-from repositories.stock_repository import StockRepository
+from domain.dashboard_info import DashboardInfo
 
 
 @singleton
-class GetInvestments:
+class GetDashboardInfo:
     def __init__(self,
-                 investment_repo: InvestmentRepository,
-                 stock_repo: StockRepository,
-                 get_investment_presenter):
+                 investment_repo,
+                 dashboard_info_presenter):
         self.__investment_repo = investment_repo
-        self.__stock_repo = stock_repo
-        self.__presenter = get_investment_presenter
+        self.__presenter = dashboard_info_presenter
 
     def run(self):
         try:
             investments = self.__investment_repo.get_investments_by_username()
-
-            updated_investments = list(map(lambda investment: investment.complement_with_stock_current_price(
-                self.__stock_repo.get_stock_by_code(investment.codigo).current_price), investments))
-            list_to_presenter = list(map(lambda investment: investment.format_as_dict(), updated_investments))
-            return self.__presenter.respond(list_to_presenter)
+            import pdb; pdb.set_trace()
+            assets = self.__calculate_assets(investments)
+            income = self.__calculate_income(investments)
+            dashboard = DashboardInfo(assets, income)
+            return self.__presenter.respond(dashboard.format_as_dict())
         except Exception:
             return self.__presenter.respond_with_error()
+
+    def __calculate_assets(self, investments):
+        return reduce(lambda x: sum(x.format_as_dict()['valor_investido_atual']), investments)
+
+    def __calculate_income(self, investments):
+        return reduce(lambda x: sum(x.format_as_dict()['rendimento']), investments)
