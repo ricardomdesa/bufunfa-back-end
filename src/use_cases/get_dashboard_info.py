@@ -1,4 +1,5 @@
 from functools import reduce
+from statistics import mean
 
 from singleton_decorator import singleton
 
@@ -16,16 +17,19 @@ class GetDashboardInfo:
     def run(self):
         try:
             investments = self.__investment_repo.get_investments_by_username()
-            import pdb; pdb.set_trace()
             assets = self.__calculate_assets(investments)
             income = self.__calculate_income(investments)
             dashboard = DashboardInfo(assets, income)
             return self.__presenter.respond(dashboard.format_as_dict())
-        except Exception:
-            return self.__presenter.respond_with_error()
+        except Exception as error:
+            return self.__presenter.respond_with_error(error)
 
-    def __calculate_assets(self, investments):
-        return reduce(lambda x: sum(x.format_as_dict()['valor_investido_atual']), investments)
+    @staticmethod
+    def __calculate_assets(investments):
+        list_values = list(map(lambda x: x.format_as_dict()['valor_investido'], investments))
+        return reduce((lambda x, y: x + y), list_values)
 
-    def __calculate_income(self, investments):
-        return reduce(lambda x: sum(x.format_as_dict()['rendimento']), investments)
+    @staticmethod
+    def __calculate_income(investments):
+        list_values = list(map(lambda x: x.format_as_dict()['valor_investido'], investments))
+        return mean(list_values)
