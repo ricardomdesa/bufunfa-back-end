@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
 
+from controllers.get_dashboard_info_controller import GetDashboardInfoController
 from controllers.get_investments_controller import GetInvestmentController
 from controllers.get_stock_controller import GetStockController
 from controllers.signup_controller import SignUpController
@@ -13,6 +14,11 @@ from controllers.authentication_controller import AuthenticationController
 from controllers.stock_controller import StockController
 from controllers.load_investment_controller import LoadInvestmentController
 from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
+
+import logging
+
+LOGGER = logging.getLogger(__name__)
+
 
 app = FastAPI()
 
@@ -50,40 +56,49 @@ def login_token(data: OAuth2PasswordRequestForm = Depends()):
 
 @app.post('/load-stocks')
 def load_stock(stock_file: UploadFile = File(...), username=Depends(login_manager)):
-    controller = StockController(username.username)
+    controller = StockController()
+    controller.set_username(username.username)
     return controller.load_stocks(stock_file.file)
 
 
 @app.post('/load-investments')
 def load_transactions(investment_file: UploadFile = File(...), username=Depends(login_manager)):
-    controller = LoadInvestmentController(username.username)
+    controller = LoadInvestmentController()
+    controller.set_username(username.username)
     return controller.load_investments(investment_file.file)
 
 
 @app.post('/fetch-current-prices')
 def fetch_current_prices(username=Depends(login_manager)):
-    controller = FetchCurrentStockPriceController(username.username)
+    controller = FetchCurrentStockPriceController()
+    controller.set_username(username.username)
     return controller.fetch_current_stock_price()
 
 
 @app.post('/get-investments')
 def get_investment(username=Depends(login_manager)):
-    controller = GetInvestmentController(username.username)
+    LOGGER.info("main get inv user -- " + username.username)
+    controller = GetInvestmentController()
+    controller.set_username(username.username)
     return controller.get_investments()
 
 
 @app.post('/get-stocks')
 def get_stocks(username=Depends(login_manager)):
-    controller = GetStockController(username.username)
+    controller = GetStockController()
+    controller.set_username(username.username)
     return controller.get_stocks()
+
+
+@app.post('/get-dashboard-info')
+def get_dashboard_info(username=Depends(login_manager)):
+    controller = GetDashboardInfoController()
+    controller.set_username(username.username)
+    return controller.get_dashboard()
 
 
 @app.post('/signup')
 def signup(data: dict = Body(...)):
     controller = SignUpController()
     return controller.signup(data)
-
-
-# if __name__ == '__main__':
-#     uvicorn.run("main:app", host="localhost", port=8002, reload=True)
 
