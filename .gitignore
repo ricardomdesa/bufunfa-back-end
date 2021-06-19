@@ -1,10 +1,11 @@
 .env
 
-../.idea
+.env.*
 
 __pycache__
 
-tests/files/*.xlsx
+src/tests/files/*.xlsx
 
 .pytest_cache
 
+.idea
