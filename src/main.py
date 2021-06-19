@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
 
+from controllers.get_dashboard_info_controller import GetDashboardInfoController
 from controllers.get_investments_controller import GetInvestmentController
 from controllers.get_stock_controller import GetStockController
 from controllers.signup_controller import SignUpController
@@ -87,6 +88,13 @@ def get_stocks(username=Depends(login_manager)):
     controller = GetStockController()
     controller.set_username(username.username)
     return controller.get_stocks()
+
+
+@app.post('/get-dashboard-info')
+def get_dashboard_info(username=Depends(login_manager)):
+    controller = GetDashboardInfoController()
+    controller.set_username(username.username)
+    return controller.get_dashboard()
 
 
 @app.post('/signup')

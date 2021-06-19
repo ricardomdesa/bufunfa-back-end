@@ -4,8 +4,11 @@ from tests.use_cases.mocks.investment_mock import INVESTMENT_MOCK
 
 class MockInvestmentRepo:
 
-    def __init__(self, username: str):
+    def __init__(self):
         self.__investments = INVESTMENT_MOCK
+        self.username = ""
+
+    def set_username(self, username: str):
         self.username = username
 
     def add_many(self, transaction: list):

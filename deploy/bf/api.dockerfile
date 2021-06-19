@@ -2,11 +2,12 @@ FROM python:3.8.8-slim-buster
 
 WORKDIR /app
 
-ADD ../src/requirements.txt .
+RUN python -m pip install -U pip poetry &&\
+    poetry config virtualenvs.create false
 
-RUN python3 -m pip install --upgrade pip
+ADD pyproject.toml poetry.lock ./
 
-RUN pip3 install -r requirements.txt
+RUN poetry install
 
 COPY ./src .
 
