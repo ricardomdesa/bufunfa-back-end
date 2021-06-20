@@ -10,17 +10,18 @@ INVESTMENT_MOCK = [{
     'rendimento': None
 }]
 
-INVESTMENT_MOCK_TWO = [{
-    'username': 'teste1',
-    'corretora': 'xp',
-    'codigo': 'TEST3.SA',
-    'valor_medio': 20.0,
-    'quantidade': 100,
-    'tipo': 'acao',
-    'valor_investido': 2000.0,
-    'valor_investido_atual': 2400,
-    'rendimento': 0.2
-},
+INVESTMENT_MOCK_TWO = [
+    {
+        'username': 'teste1',
+        'corretora': 'xp',
+        'codigo': 'TEST3.SA',
+        'valor_medio': 20.0,
+        'quantidade': 100,
+        'tipo': 'acao',
+        'valor_investido': 2000.0,
+        'valor_investido_atual': 2400,
+        'rendimento': 0.2
+    },
     {
         'username': 'teste1',
         'corretora': 'xp',
@@ -35,15 +36,15 @@ INVESTMENT_MOCK_TWO = [{
 ]
 INVESTMENT_MOCK_TWO_CALC_EMPTY = [
     {
-    'username': 'teste1',
-    'corretora': 'xp',
-    'codigo': 'TEST3.SA',
-    'valor_medio': 20.0,
-    'quantidade': 100,
-    'tipo': 'acao',
-    'valor_investido': 2000.0,
-    'valor_investido_atual': None,
-    'rendimento': None
+        'username': 'teste1',
+        'corretora': 'xp',
+        'codigo': 'TEST3.SA',
+        'valor_medio': 20.0,
+        'quantidade': 100,
+        'tipo': 'acao',
+        'valor_investido': 2000.0,
+        'valor_investido_atual': None,
+        'rendimento': None
     },
     {
         'username': 'teste1',
