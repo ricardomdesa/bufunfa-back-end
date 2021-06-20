@@ -2,10 +2,8 @@ from domain.user import User
 from repositories.user_repository import UserRepository
 from use_cases.signup import SignUp
 import copy
-from singleton_decorator import singleton
 
 
-@singleton
 class MockSignUpPresenter:
     def respond(self, resp):
         return resp
@@ -14,7 +12,6 @@ class MockSignUpPresenter:
         return message
 
 
-@singleton
 class MockUserRepository:
     def __init__(self):
         self.__user = {'name': '', 'username': '', 'password': ''}
@@ -23,7 +20,7 @@ class MockUserRepository:
         self.__user = copy.deepcopy(user.format_as_dict())
 
     def find_by_username(self, username):
-        return User(username, self.__user['password'], self.__user['name'])
+        return User(username, self.__user['password'], self.__user['name']) if username != 'teste' else None
 
 
 def test_signup_correct_data():
@@ -32,24 +29,6 @@ def test_signup_correct_data():
     response = use_case.run(data)
     assert response.format_as_dict()['username'] == 'teste'
     assert len(response.format_as_dict()['password']) == 192
-
-
-def test_signup_add_bd_data_mock():
-    repo = MockUserRepository()
-    use_case = SignUp(repo, MockSignUpPresenter())
-    data = {'name': 'teste', 'username': 'teste', 'password': '1234', 'confirmPassword': '1234'}
-    response = use_case.run(data)
-    user_db = repo.find_by_username('teste')
-    assert response.format_as_dict() == user_db.format_as_dict()
-
-
-def test_signup_add_bd_data():
-    user_repo = UserRepository()
-    use_case = SignUp(user_repo, MockSignUpPresenter())
-    data = {'name': 'teste', 'username': 'teste', 'password': '1234', 'confirmPassword': '1234'}
-    response = use_case.run(data)
-    user_db = user_repo.find_by_username('teste')
-    assert response.format_as_dict() == user_db.format_as_dict()
 
 
 # validations tests

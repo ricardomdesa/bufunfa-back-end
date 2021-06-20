@@ -1,21 +1,24 @@
 from domain.investment import Investment
-from tests.use_cases.mocks.investment_mock import INVESTMENT_MOCK
+
 
 
 class MockInvestmentRepo:
 
     def __init__(self):
-        self.__investments = INVESTMENT_MOCK
+        self.investments = []
         self.username = ""
 
     def set_username(self, username: str):
         self.username = username
 
+    def set_db_data(self, data):
+        self.investments = data[:]
+
     def add_many(self, transaction: list):
-        self.__investments = transaction
+        self.investments = transaction
 
     def update_all_by_username(self, investments):
-        self.__investments = investments
+        self.investments = investments
 
     def get_investments_by_username(self):
         return [Investment(investment['username'],
@@ -24,10 +27,10 @@ class MockInvestmentRepo:
                            investment['valor_medio'],
                            investment['quantidade'],
                            investment['tipo']
-                           ) for investment in self.__investments] if self.__investments else []
+                           ) for investment in self.investments] if self.investments else []
 
     def get_investment_by_code(self):
-        investment = self.__investments[0]
+        investment = self.investments[0]
         return Investment(investment['username'],
                           investment['corretora'],
                           investment['codigo'],
@@ -37,7 +40,7 @@ class MockInvestmentRepo:
                           )
 
     def remove_by_code(self):
-        self.__investments = []
+        self.investments = list()
 
     def remove_all_by_username(self):
-        self.__investments = []
+        self.investments = list()
