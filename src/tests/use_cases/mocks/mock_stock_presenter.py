@@ -6,5 +6,5 @@ class MockStockPresenter:
 
 
     @staticmethod
-    def respond_with_error(error):
-        return error
+    def respond_with_error():
+        return "Error stock presenter"
