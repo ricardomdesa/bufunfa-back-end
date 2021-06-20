@@ -1,11 +1,8 @@
-from singleton_decorator import singleton
-
 from presenters.signup_presenter import SignUpPresenter
 from repositories.user_repository import UserRepository
 from use_cases.signup import SignUp
 
 
-@singleton
 class SignUpController:
     def __init__(self):
         self.__user_repo = UserRepository()

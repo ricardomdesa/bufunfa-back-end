@@ -1,5 +1,3 @@
-from singleton_decorator import singleton
-
 from presenters.dashboard_info_presenter import DashboardInfoPresenter
 from repositories.investment_repository import InvestmentRepository
 from use_cases.get_dashboard_info import GetDashboardInfo
@@ -8,7 +6,6 @@ import logging
 LOGGER = logging.getLogger(__name__)
 
 
-# @singleton
 class GetDashboardInfoController:
 
     def __init__(self):

@@ -1,12 +1,10 @@
 from database.mongodb import db
 from domain.investment import Investment
-from singleton_decorator import singleton
 import logging
 
 LOGGER = logging.getLogger(__name__)
 
 
-@singleton
 class InvestmentRepository:
 
     def __init__(self):
