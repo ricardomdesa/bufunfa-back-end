@@ -1,4 +1,4 @@
-from src.singleton import Singleton
+from singleton import Singleton
 from business_exceptions.invalid_user_values_error import InvalidUserValuesError
 from domain.user import User
 from utils.authentication_utils import hash_password
