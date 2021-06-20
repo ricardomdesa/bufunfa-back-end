@@ -25,18 +25,22 @@ class InvestmentRepository:
                            investment['codigo'],
                            investment['valor_medio'],
                            investment['quantidade'],
-                           investment['tipo']
+                           investment['tipo'],
+                           investment['valor_investido_atual'],
+                           investment['rendimento']
                            ) for investment in investments] if investments else []
 
     def update_all_by_username(self, investments: list):
         for inv in investments:
-            filter = {"username": self.username, "codigo": inv['codigo']}
+            filter = {"username": self.username, "codigo": inv['codigo'], "corretora": inv["corretora"]}
 
-            new_values = {"$set": {'corretora': inv['corretora'],
-                                   'valor_medio': inv['valor_medio'],
+            new_values = {"$set": {'valor_medio': inv['valor_medio'],
                                    'quantidade': inv['quantidade'],
-                                   'tipo': inv['tipo']}}
-
+                                   'tipo': inv['tipo'],
+                                   'valor_investido': inv['valor_investido'],
+                                   'valor_investido_atual': inv['valor_investido_atual'],
+                                   'rendimento': inv['rendimento'],
+                                   }}
             db.investments.update_one(filter, new_values)
 
     def get_investment_by_code(self, code: str):
@@ -46,7 +50,9 @@ class InvestmentRepository:
                            investment['codigo'],
                            investment['valor_medio'],
                            investment['quantidade'],
-                           investment['tipo']
+                           investment['valor_investido'],
+                           investment['valor_investido_atual'],
+                           investment['rendimento']
                            ) for investment in investments] if investments else []
 
     def remove_by_code(self, code: str):
