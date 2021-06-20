@@ -3,7 +3,7 @@ from business_exceptions.invalid_investment_values_error import InvalidInvestmen
 
 class Investment:
     def __init__(self, username: str, corretora: str, codigo: str, valor_medio: float, quantidade: int,
-                 tipo: str = "acao"):
+                 tipo: str = "acao", valor_investido_atual: float = None,  rendimento: float = None):
         self.username = username
         self.corretora = corretora
         self.codigo = codigo
@@ -15,8 +15,8 @@ class Investment:
             self.__valor_investido = self.__get_invested_value()
         except InvalidInvestmentValuesError as error:
             raise error
-        self.__valor_investido_atual = None
-        self.__rendimento = None
+        self.__valor_investido_atual = valor_investido_atual
+        self.__rendimento = rendimento
         self.__current_stock_price = None
 
     def __validate_values(self):

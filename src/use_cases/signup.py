@@ -1,12 +1,10 @@
-from singleton_decorator import singleton
-
+from singleton import Singleton
 from business_exceptions.invalid_user_values_error import InvalidUserValuesError
 from domain.user import User
 from utils.authentication_utils import hash_password
 
 
-@singleton
-class SignUp:
+class SignUp(metaclass=Singleton):
     def __init__(self, user_repo, signup_presenter):
         self.__user_repo = user_repo
         self.__signup_presenter = signup_presenter

@@ -6,8 +6,11 @@ from tests.use_cases.mocks.stock_mock import STOCK_MOCK
 
 class MockStockRepo:
 
-    def __init__(self, username: str):
+    def __init__(self):
         self.__stocks = STOCK_MOCK
+        self.username = ""
+
+    def set_username(self, username: str):
         self.username = username
 
     def update_all_by_code(self, stocks: List[Stock]):
@@ -22,10 +25,10 @@ class MockStockRepo:
         self.__stocks = stock_list
 
     def remove_by_code(self):
-        self.__stocks = []
+        self.__stocks = list()
 
     def remove_all(self):
-        self.__stocks = []
+        self.__stocks = list()
 
     def get_stock_by_code(self, code: str):
         stock = self.__stocks[0]
