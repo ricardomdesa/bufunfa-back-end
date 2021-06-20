@@ -26,7 +26,9 @@ class MockInvestmentRepo:
                            investment['codigo'],
                            investment['valor_medio'],
                            investment['quantidade'],
-                           investment['tipo']
+                           investment['tipo'],
+                           investment['valor_investido_atual'],
+                           investment['rendimento']
                            ) for investment in self.investments] if self.investments else []
 
     def get_investment_by_code(self):
