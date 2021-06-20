@@ -1,13 +1,12 @@
 from functools import reduce
 from statistics import mean
 
-from singleton_decorator import singleton
+from singleton import Singleton
 
 from domain.dashboard_info import DashboardInfo
 
 
-@singleton
-class GetDashboardInfo:
+class GetDashboardInfo(metaclass=Singleton):
     def __init__(self,
                  investment_repo,
                  dashboard_info_presenter):

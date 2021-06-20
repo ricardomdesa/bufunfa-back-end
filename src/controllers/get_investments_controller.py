@@ -1,5 +1,3 @@
-from singleton_decorator import singleton
-
 from presenters.get_investment_presenter import GetInvestmentPresenter
 from repositories.investment_repository import InvestmentRepository
 from repositories.stock_repository import StockRepository
@@ -9,7 +7,6 @@ import logging
 LOGGER = logging.getLogger(__name__)
 
 
-# @singleton
 class GetInvestmentController:
 
     def __init__(self):

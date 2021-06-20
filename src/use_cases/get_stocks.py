@@ -1,8 +1,7 @@
-from singleton_decorator import singleton
+from singleton import Singleton
 
 
-@singleton
-class GetStocks:
+class GetStocks(metaclass=Singleton):
     def __init__(self, stock_repo, get_stock_presenter):
         self.__stock_repo = stock_repo
         self.__presenter = get_stock_presenter

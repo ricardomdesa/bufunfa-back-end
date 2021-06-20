@@ -1,11 +1,10 @@
-from singleton_decorator import singleton
+from singleton import Singleton
 
 from repositories.investment_repository import InvestmentRepository
 from repositories.stock_repository import StockRepository
 
 
-@singleton
-class GetInvestments:
+class GetInvestments(metaclass=Singleton):
     def __init__(self,
                  investment_repo: InvestmentRepository,
                  stock_repo: StockRepository,

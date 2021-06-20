@@ -1,11 +1,9 @@
-from singleton_decorator import singleton
 
 from presenters.get_stock_presenter import GetStockPresenter
 from repositories.stock_repository import StockRepository
 from use_cases.get_stocks import GetStocks
 
-
-@singleton
+ 
 class GetStockController:
 
     def __init__(self):

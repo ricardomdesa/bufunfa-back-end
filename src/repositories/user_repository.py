@@ -1,9 +1,7 @@
 from database.mongodb import db
 from domain.user import User
-from singleton_decorator import singleton
 
 
-@singleton
 class UserRepository:
 
     def add_user(self, user: User):
