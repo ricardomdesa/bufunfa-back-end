@@ -34,8 +34,8 @@ class SignUp(metaclass=Singleton):
 
     @staticmethod
     def __validate_username_size(data):
-        if len(data['username']) < 5:
-            raise InvalidUserValuesError('Username ter mais que 3 digitos')
+        if len(data['username']) < 4:
+            raise InvalidUserValuesError('Username precisa ter no minimo 4 digitos')
 
     @staticmethod
     def __validate_name_size(data):
