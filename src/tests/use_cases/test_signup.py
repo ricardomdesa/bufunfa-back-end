@@ -43,7 +43,7 @@ def test_signup_invalid_username_size():
     use_case = SignUp(MockUserRepository(), MockSignUpPresenter())
     data = {'name': 'teste', 'username': 'tes', 'password': '1234', 'confirmPassword': '1234'}
     response = use_case.run(data)
-    assert response == 'Username precisa ter mais que 3 digitos'
+    assert response == 'Username precisa ter no minimo 4 digitos'
 
 
 def test_signup_invalid_name_size():
