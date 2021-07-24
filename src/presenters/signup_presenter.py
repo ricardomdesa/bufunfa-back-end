@@ -1,9 +1,9 @@
 import json
+
 from fastapi import Response, status
 
 
 class SignUpPresenter:
-
     @staticmethod
     def respond(user):
         response = Response()

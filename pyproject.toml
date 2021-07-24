@@ -12,7 +12,6 @@ pymongo = "3.11.4"
 numpy = "1.20.3"
 pandas = "1.1.5"
 passlib = "1.7.4"
-pytest = "6.2.4"
 python-dateutil = "2.8.1"
 python-dotenv = "0.17.1"
 uvicorn = "0.13.4"
@@ -26,6 +25,25 @@ urllib3 = "1.26.4"
 python-multipart = "0.0.5"
 
 [tool.poetry.dev-dependencies]
+black = "^21.6b0"
+coverage = "^5.5"
+flake8 = "^3.9.2"
+flake8-black = "^0.2.1"
+flake8-isort = "^4.0.0"
+isort = "^5.8.0"
+pytest = "~6.2.4"
+pytest-cov = "^2.12.1"
+pytest-flake8 = "^1.0.7"
+pytest-mock = "~3.4.0"
+mongomock = "^3.23.0"
+ipython = "^7.25.0"
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.black]
+line-length = 120
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

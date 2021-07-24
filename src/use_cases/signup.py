@@ -1,6 +1,6 @@
-from singleton import Singleton
 from business_exceptions.invalid_user_values_error import InvalidUserValuesError
 from domain.user import User
+from singleton import Singleton
 from utils.authentication_utils import hash_password
 
 
@@ -13,7 +13,7 @@ class SignUp(metaclass=Singleton):
         try:
             self.__validate(data)
             self.__check_if_username_exists(data)
-            user = User(data['username'], hash_password(data['password']), data['name'])
+            user = User(data["username"], hash_password(data["password"]), data["name"])
             self.__user_repo.add_user(user)
             return self.__signup_presenter.respond(user)
         except InvalidUserValuesError as err:
@@ -29,19 +29,19 @@ class SignUp(metaclass=Singleton):
 
     @staticmethod
     def __validate_passwords(data):
-        if data['password'] != data['confirmPassword']:
-            raise InvalidUserValuesError('Senhas devem ser iguais')
+        if data["password"] != data["confirmPassword"]:
+            raise InvalidUserValuesError("Senhas devem ser iguais")
 
     @staticmethod
     def __validate_username_size(data):
-        if len(data['username']) < 4:
-            raise InvalidUserValuesError('Username precisa ter no minimo 4 digitos')
+        if len(data["username"]) < 4:
+            raise InvalidUserValuesError("Username precisa ter no minimo 4 digitos")
 
     @staticmethod
     def __validate_name_size(data):
-        if len(data['name']) < 2:
-            raise InvalidUserValuesError('Nome ter mais que 1 digito')
+        if len(data["name"]) < 2:
+            raise InvalidUserValuesError("Nome ter mais que 1 digito")
 
     def __check_if_username_exists(self, data):
-        if self.__user_repo.find_by_username(data['username']):
-            raise InvalidUserValuesError('Usuario ja cadastrado')
+        if self.__user_repo.find_by_username(data["username"]):
+            raise InvalidUserValuesError("Usuario ja cadastrado")

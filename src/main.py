@@ -1,30 +1,27 @@
-import uvicorn
-from fastapi import FastAPI, File, UploadFile, Depends, Request, Body
+import logging
+
+from fastapi import Body, Depends, FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
 
+from controllers.authentication_controller import AuthenticationController
+from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
 from controllers.get_dashboard_info_controller import GetDashboardInfoController
 from controllers.get_investments_controller import GetInvestmentController
 from controllers.get_stock_controller import GetStockController
-from controllers.signup_controller import SignUpController
-from environment import WEBAPP_URL, SECRET
-from repositories.user_repository import UserRepository
-from controllers.authentication_controller import AuthenticationController
-from controllers.stock_controller import StockController
 from controllers.load_investment_controller import LoadInvestmentController
-from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
-
-import logging
+from controllers.signup_controller import SignUpController
+from controllers.stock_controller import StockController
+from environment import SECRET, WEBAPP_URL
+from repositories.user_repository import UserRepository
 
 LOGGER = logging.getLogger(__name__)
 
 
 app = FastAPI()
 
-origins = {
-    WEBAPP_URL
-}
+origins = {WEBAPP_URL}
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,10 +33,10 @@ app.add_middleware(
         "X-Content-Filename",
         "Content-Disposition",
         "application/x-www-form-urlencoded",
-    ]
+    ],
 )
 
-login_manager = LoginManager(SECRET, '/login')
+login_manager = LoginManager(SECRET, "/login")
 
 
 @login_manager.user_loader
@@ -48,34 +45,34 @@ def load_user(username: str):
     return user
 
 
-@app.post('/login')
+@app.post("/login")
 def login_token(data: OAuth2PasswordRequestForm = Depends()):
     controller = AuthenticationController(login_manager)
     return controller.authenticate_user(data.username, data.password)
 
 
-@app.post('/load-stocks')
+@app.post("/load-stocks")
 def load_stock(stock_file: UploadFile = File(...), username=Depends(login_manager)):
     controller = StockController()
     controller.set_username(username.username)
     return controller.load_stocks(stock_file.file)
 
 
-@app.post('/load-investments')
+@app.post("/load-investments")
 def load_transactions(investment_file: UploadFile = File(...), username=Depends(login_manager)):
     controller = LoadInvestmentController()
     controller.set_username(username.username)
     return controller.load_investments(investment_file.file)
 
 
-@app.post('/fetch-current-prices')
+@app.post("/fetch-current-prices")
 def fetch_current_prices(username=Depends(login_manager)):
     controller = FetchCurrentStockPriceController()
     controller.set_username(username.username)
     return controller.fetch_current_stock_price()
 
 
-@app.post('/get-investments')
+@app.post("/get-investments")
 def get_investment(username=Depends(login_manager)):
     LOGGER.info("main get inv user -- " + username.username)
     controller = GetInvestmentController()
@@ -83,22 +80,21 @@ def get_investment(username=Depends(login_manager)):
     return controller.get_investments()
 
 
-@app.post('/get-stocks')
+@app.post("/get-stocks")
 def get_stocks(username=Depends(login_manager)):
     controller = GetStockController()
     controller.set_username(username.username)
     return controller.get_stocks()
 
 
-@app.post('/get-dashboard-info')
+@app.post("/get-dashboard-info")
 def get_dashboard_info(username=Depends(login_manager)):
     controller = GetDashboardInfoController()
     controller.set_username(username.username)
     return controller.get_dashboard()
 
 
-@app.post('/signup')
+@app.post("/signup")
 def signup(data: dict = Body(...)):
     controller = SignUpController()
     return controller.signup(data)
-

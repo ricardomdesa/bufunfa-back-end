@@ -5,7 +5,6 @@ from tests.use_cases.mocks.stock_mock import STOCK_MOCK
 
 
 class MockStockRepo:
-
     def __init__(self):
         self.__stocks = STOCK_MOCK
         self.username = ""
@@ -32,10 +31,20 @@ class MockStockRepo:
 
     def get_stock_by_code(self, code: str):
         stock = self.__stocks[0]
-        return Stock(stock['stock_name'], stock['stock_code'], stock['stock_current_price'], stock['stock_last_update'])
+        return Stock(
+            stock["stock_name"],
+            stock["stock_code"],
+            stock["stock_current_price"],
+            stock["stock_last_update"],
+        )
 
     def get_stocks(self):
         return [
-            Stock(stock['stock_name'], stock['stock_code'], stock['stock_current_price'], stock['stock_last_update'])
-            for stock in
-            self.__stocks]
+            Stock(
+                stock["stock_name"],
+                stock["stock_code"],
+                stock["stock_current_price"],
+                stock["stock_last_update"],
+            )
+            for stock in self.__stocks
+        ]

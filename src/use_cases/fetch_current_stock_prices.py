@@ -1,14 +1,14 @@
 import logging
-from pandas_datareader import data as pdr
 from datetime import date, timedelta
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+from pandas_datareader import data as pdr
 
 LOGGER = logging.getLogger(__name__)
 
 
 class FetchCurrentStockPrices:
-
     def __init__(self, stock_repo, fetch_prices_presenter):
         self.stock_repo = stock_repo
         self.fetch_prices_presenter = fetch_prices_presenter
@@ -27,8 +27,8 @@ class FetchCurrentStockPrices:
     def __get_dates():
         start_date = date.today() - timedelta(days=int(3))
         end_date = date.today()
-        start_date = pd.to_datetime(start_date).strftime('%Y-%m-%d')
-        end_date = pd.to_datetime(end_date).strftime('%Y-%m-%d')
+        start_date = pd.to_datetime(start_date).strftime("%Y-%m-%d")
+        end_date = pd.to_datetime(end_date).strftime("%Y-%m-%d")
         return start_date, end_date
 
     def __fetch_data_from_finance(self, stock_codes: list):
@@ -37,9 +37,9 @@ class FetchCurrentStockPrices:
 
     def __get_dict_from_pdr_yahoo(self, stocks_df):
         t = stocks_df.index.values[-1]
-        current_date = np.datetime_as_string(t, unit='D')
-        df = stocks_df.loc[:, 'Adj Close']
-        dici = df.iloc[-1:, :].applymap(lambda x: round(x, 2)).to_dict('records')
+        current_date = np.datetime_as_string(t, unit="D")
+        df = stocks_df.loc[:, "Adj Close"]
+        dici = df.iloc[-1:, :].applymap(lambda x: round(x, 2)).to_dict("records")
         stock_list_dict = []
         for code, value in dici[0].items():
             new_stock = self.stock_repo.get_stock_by_code(code)

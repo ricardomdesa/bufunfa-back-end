@@ -1,14 +1,14 @@
 import json
+
 from fastapi import Response, status
 
 
 class DashboardInfoPresenter:
-
     @staticmethod
     def respond(dashboard):
         response = Response()
         response.status_code = status.HTTP_200_OK
-        response.body = json.dumps({'dashboard_info': dashboard}).encode("utf-8")
+        response.body = json.dumps({"dashboard_info": dashboard}).encode("utf-8")
         return response
 
     @staticmethod

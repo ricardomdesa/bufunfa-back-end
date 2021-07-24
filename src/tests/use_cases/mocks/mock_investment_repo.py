@@ -1,9 +1,7 @@
 from domain.investment import Investment
 
 
-
 class MockInvestmentRepo:
-
     def __init__(self):
         self.investments = []
         self.username = ""
@@ -21,25 +19,34 @@ class MockInvestmentRepo:
         self.investments = investments
 
     def get_investments_by_username(self):
-        return [Investment(investment['username'],
-                           investment['corretora'],
-                           investment['codigo'],
-                           investment['valor_medio'],
-                           investment['quantidade'],
-                           investment['tipo'],
-                           investment['valor_investido_atual'],
-                           investment['rendimento']
-                           ) for investment in self.investments] if self.investments else []
+        return (
+            [
+                Investment(
+                    investment["username"],
+                    investment["corretora"],
+                    investment["codigo"],
+                    investment["valor_medio"],
+                    investment["quantidade"],
+                    investment["tipo"],
+                    investment["valor_investido_atual"],
+                    investment["rendimento"],
+                )
+                for investment in self.investments
+            ]
+            if self.investments
+            else []
+        )
 
     def get_investment_by_code(self):
         investment = self.investments[0]
-        return Investment(investment['username'],
-                          investment['corretora'],
-                          investment['codigo'],
-                          investment['valor_medio'],
-                          investment['quantidade'],
-                          investment['tipo']
-                          )
+        return Investment(
+            investment["username"],
+            investment["corretora"],
+            investment["codigo"],
+            investment["valor_medio"],
+            investment["quantidade"],
+            investment["tipo"],
+        )
 
     def remove_by_code(self):
         self.investments = list()

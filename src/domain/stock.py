@@ -1,8 +1,5 @@
-import datetime
-
-
 class Stock:
-    def __init__(self, name: str, code: str, current_price: float, last_update = None):
+    def __init__(self, name: str, code: str, current_price: float, last_update=None):
         self.name = name
         self.code = code
         self.current_price = current_price
@@ -18,8 +15,8 @@ class Stock:
 
     def format_as_dict(self):
         return {
-            'stock_name': self.name,
-            'stock_code': self.code,
-            'stock_current_price': self.current_price,
-            'stock_last_update': self.last_update
+            "stock_name": self.name,
+            "stock_code": self.code,
+            "stock_current_price": self.current_price,
+            "stock_last_update": self.last_update,
         }

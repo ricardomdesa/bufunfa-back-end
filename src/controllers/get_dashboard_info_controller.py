@@ -1,13 +1,13 @@
+import logging
+
 from presenters.dashboard_info_presenter import DashboardInfoPresenter
 from repositories.investment_repository import InvestmentRepository
 from use_cases.get_dashboard_info import GetDashboardInfo
-import logging
 
 LOGGER = logging.getLogger(__name__)
 
 
 class GetDashboardInfoController:
-
     def __init__(self):
         self.__investment_repo = InvestmentRepository()
         self.__presenter = DashboardInfoPresenter()

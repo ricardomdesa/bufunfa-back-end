@@ -1,9 +1,9 @@
 import json
+
 from fastapi import Response, status
 
 
 class StockPresenter:
-
     @staticmethod
     def respond(docs):
         response = Response()

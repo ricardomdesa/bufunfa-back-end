@@ -1,9 +1,9 @@
 import json
+
 from fastapi import Response, status
 
 
 class FetchStockPricesPresenter:
-
     @staticmethod
     def respond(qtde):
         response = Response()

@@ -1,11 +1,9 @@
-
 from presenters.get_stock_presenter import GetStockPresenter
 from repositories.stock_repository import StockRepository
 from use_cases.get_stocks import GetStocks
 
- 
-class GetStockController:
 
+class GetStockController:
     def __init__(self):
         self.__stock_repo = StockRepository()
         self.__presenter = GetStockPresenter()

@@ -1,9 +1,9 @@
 import json
+
 from fastapi import Response, status
 
 
 class AuthenticationPresenter:
-
     @staticmethod
     def respond(access_token):
         response = Response()

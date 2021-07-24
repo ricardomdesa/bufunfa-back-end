@@ -1,14 +1,14 @@
+import logging
+
 from presenters.get_investment_presenter import GetInvestmentPresenter
 from repositories.investment_repository import InvestmentRepository
 from repositories.stock_repository import StockRepository
 from use_cases.get_investments import GetInvestments
-import logging
 
 LOGGER = logging.getLogger(__name__)
 
 
 class GetInvestmentController:
-
     def __init__(self):
         self.__investment_repo = InvestmentRepository()
         self.__stock_repo = StockRepository()

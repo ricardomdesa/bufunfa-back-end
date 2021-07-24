@@ -2,8 +2,17 @@ from business_exceptions.invalid_investment_values_error import InvalidInvestmen
 
 
 class Investment:
-    def __init__(self, username: str, corretora: str, codigo: str, valor_medio: float, quantidade: int,
-                 tipo: str = "acao", valor_investido_atual: float = None,  rendimento: float = None):
+    def __init__(
+        self,
+        username: str,
+        corretora: str,
+        codigo: str,
+        valor_medio: float,
+        quantidade: int,
+        tipo: str = "acao",
+        valor_investido_atual: float = None,
+        rendimento: float = None,
+    ):
         self.username = username
         self.corretora = corretora
         self.codigo = codigo
@@ -37,8 +46,8 @@ class Investment:
         return self
 
     def validate_stock_code(self):
-        valid_ends = self.codigo.endswith('.SA')
-        valid_size = (8 <= len(self.codigo) <= 9)
+        valid_ends = self.codigo.endswith(".SA")
+        valid_size = 8 <= len(self.codigo) <= 9
         return valid_ends and valid_size
 
     def __validate_average_value(self):
@@ -58,5 +67,5 @@ class Investment:
             "valor_investido": self.__valor_investido,
             "valor_investido_atual": self.__valor_investido_atual,
             "rendimento": self.__rendimento,
-            'current_stock_price': self.__current_stock_price
+            "current_stock_price": self.__current_stock_price,
         }
