@@ -69,7 +69,7 @@ def load_transactions(investment_file: UploadFile = File(...), username=Depends(
 def fetch_current_prices(username=Depends(login_manager)):
     controller = FetchCurrentStockPriceController()
     controller.set_username(username.username)
-    return controller.fetch_current_stock_price()
+    return {"Error": "Yahoo finance unavailable!!"}
 
 
 @app.post("/get-investments")
