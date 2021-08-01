@@ -3,7 +3,7 @@ from typing import List
 
 import numpy as np
 import pandas as pd
-from pandas_datareader import data as pdr
+import yfinance as yf
 
 
 class YahooApiService:
@@ -28,7 +28,7 @@ class YahooApiService:
 
     def __fetch_data_from_finance(self, stock_codes: list):
         start_date, end_date = self.__get_formatted_dates()
-        return pdr.get_data_yahoo(stock_codes, start=start_date, end=end_date)
+        return yf.download(" ".join(stock_codes), start=start_date, end=end_date)
 
     @staticmethod
     def __get_formatted_dates():
@@ -45,7 +45,7 @@ class YahooApiService:
         return current_date, df.iloc[-1:, :].applymap(lambda x: round(x, 2)).to_dict("records")
 
     def __get_updated_stock_list(self, current_date, dict_from_yahoo, stock_as_dict):
-        assert len(dict_from_yahoo) == len(stock_as_dict)
+        assert len(dict_from_yahoo[0]) == len(stock_as_dict)
         stock_list_dict = stock_as_dict
 
         dict_from_yahoo = {k: v for d in dict_from_yahoo for k, v in d.items()}
