@@ -1,7 +1,7 @@
-import pytest
 from unittest.mock import Mock, patch
+
 import pandas
-from datetime import datetime
+import pytest
 
 from use_cases.load_investments import LoadInvestments
 
@@ -43,7 +43,7 @@ def mock_invest_docs():
             "valor_investido": 8800.0,
             "valor_investido_atual": None,
             "rendimento": None,
-            "current_stock_price": None
+            "current_stock_price": None,
         },
         {
             "username": "teste",
@@ -55,7 +55,7 @@ def mock_invest_docs():
             "valor_investido": 2200.0,
             "valor_investido_atual": None,
             "rendimento": None,
-            "current_stock_price": None
+            "current_stock_price": None,
         },
         {
             "username": "teste",
@@ -67,7 +67,7 @@ def mock_invest_docs():
             "valor_investido": 6600.0,
             "valor_investido_atual": None,
             "rendimento": None,
-            "current_stock_price": None
+            "current_stock_price": None,
         },
     ]
 

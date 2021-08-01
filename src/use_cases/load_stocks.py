@@ -43,7 +43,7 @@ class LoadStocks:
         return df
 
     def __validate_column_names(self, df):
-        column_names = ['stock_name', 'stock_code', 'stock_current_price', 'follow']
+        column_names = ["stock_name", "stock_code", "stock_current_price", "follow"]
         for column in column_names:
             if column not in df.columns:
                 raise AttributeError

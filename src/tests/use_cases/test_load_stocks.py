@@ -1,7 +1,8 @@
-import pytest
-from unittest.mock import Mock, patch
-import pandas
 from datetime import datetime
+from unittest.mock import Mock, patch
+
+import pandas
+import pytest
 
 from use_cases.load_stocks import LoadStocks
 
