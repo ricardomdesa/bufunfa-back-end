@@ -22,7 +22,6 @@ class LoadStocks:
     def run(self, stock_file):
         try:
             df = pd.read_csv(stock_file, sep=",", dtype=str)
-            # import pdb;pdb.set_trace()
             self.__validate_column_names(df)
             df = self.__format_df(df)
             docs = df.to_dict("records")
@@ -30,8 +29,9 @@ class LoadStocks:
             return self.stock_presenter.respond(docs)
         except AttributeError:
             return self.stock_presenter.respond_with_error("arquivo csv fora do padrao esperado")
-        except Exception:
-            return self.stock_presenter.respond_with_error()
+        except Exception as error:
+            logging.error(f"Error loading stocks: {error}")
+            return self.stock_presenter.respond_with_error(f"Error loading stocks: {error}")
 
     def __format_df(self, df):
         df = df[["stock_name", "stock_code", "stock_current_price"]]

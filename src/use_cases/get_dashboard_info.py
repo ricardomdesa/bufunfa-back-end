@@ -1,3 +1,4 @@
+import logging
 from functools import reduce
 
 from domain.dashboard_info import DashboardInfo
@@ -17,8 +18,9 @@ class GetDashboardInfo(metaclass=Singleton):
             income_perc = self.__calculate_income_perc(income_value, assets)
             dashboard = DashboardInfo(assets, income_perc, income_value)
             return self.__presenter.respond([dashboard.format_as_dict()])
-        except Exception:
-            return self.__presenter.respond_with_error("Error getting dashboard info")
+        except Exception as error:
+            logging.error(f"Error getting dashboard info: {error}")
+            return self.__presenter.respond_with_error(f"Error getting dashboard info: {error}")
 
     @staticmethod
     def __calculate_assets(investments):

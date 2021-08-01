@@ -16,5 +16,6 @@ class FetchCurrentStockPrices:
             stocks_dict = self.stock_api.get_stock_data(stocks_as_dict)
             self.stock_repo.update_all_by_code(stocks_dict)
             return self.fetch_prices_presenter.respond(len(stocks_dict))
-        except Exception:
-            return self.fetch_prices_presenter.respond_with_error()
+        except Exception as error:
+            logging.error(f"Error fetching prices: {error}")
+            return self.fetch_prices_presenter.respond_with_error(f"Error fetching prices: {error}")

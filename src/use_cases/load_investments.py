@@ -32,8 +32,9 @@ class LoadInvestments:
             return self.investment_presenter.respond(validated_docs)
         except AttributeError:
             return self.investment_presenter.respond_with_error("arquivo csv fora do padrao esperado")
-        except Exception:
-            return self.investment_presenter.respond_with_error()
+        except Exception as error:
+            logging.error(f"Error loading investments: {error}")
+            return self.investment_presenter.respond_with_error(f"Error loading investments: {error}")
 
     def __format_columns(self, df):
         df[["valor_medio"]] = df[["valor_medio"]].astype(float)

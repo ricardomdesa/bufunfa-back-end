@@ -1,3 +1,5 @@
+import logging
+
 from repositories.investment_repository import InvestmentRepository
 from repositories.stock_repository import StockRepository
 from singleton import Singleton
@@ -29,5 +31,6 @@ class GetInvestments(metaclass=Singleton):
             self.__investment_repo.update_all_by_username(dict_updated_inv)
             list_to_presenter = list(map(lambda investment: investment.format_as_dict(), updated_investments))
             return self.__presenter.respond(list_to_presenter)
-        except Exception:
-            return self.__presenter.respond_with_error()
+        except Exception as error:
+            logging.error(f"Erro ao pegar investimentos: {error}")
+            return self.__presenter.respond_with_error(f"Erro ao pegar investimentos: {error}")

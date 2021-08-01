@@ -1,3 +1,5 @@
+import logging
+
 from singleton import Singleton
 
 
@@ -11,5 +13,6 @@ class GetStocks(metaclass=Singleton):
             stocks = self.__stock_repo.get_stocks()
             stocks_dict = list(map(lambda x: x.format_as_dict(), stocks))
             return self.__presenter.respond(stocks_dict)
-        except Exception:
-            return self.__presenter.respond_with_error()
+        except Exception as error:
+            logging.error(f"Erro ao pegar acoes: {error}")
+            return self.__presenter.respond_with_error(f"Erro ao pegar acoes: {error}")

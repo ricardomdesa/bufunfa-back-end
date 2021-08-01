@@ -1,3 +1,5 @@
+import logging
+
 from business_exceptions.invalid_user_values_error import InvalidUserValuesError
 from domain.user import User
 from singleton import Singleton
@@ -17,6 +19,7 @@ class SignUp(metaclass=Singleton):
             self.__user_repo.add_user(user)
             return self.__signup_presenter.respond(user)
         except InvalidUserValuesError as err:
+            logging.error(f"Error signup: {err}")
             return self.__signup_presenter.respond_with_error(err.message)
 
     def __validate(self, date):
