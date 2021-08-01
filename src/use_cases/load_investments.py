@@ -22,13 +22,16 @@ class LoadInvestments:
 
     def run(self, file):
         try:
-            df = pd.read_excel(file, sheet_name="Carteira", dtype=str)
+            df = pd.read_csv(file, sep=",", dtype=str)
+            df = self.__validate_columns_names(df)
             df = df[["corretora", "codigo", "valor_medio", "quantidade", "tipo"]]
             df = self.__format_columns(df)
             docs = df.to_dict("records")
             validated_docs = self.__get_investments_dict_to_repository(docs)
             self.investment_repo.add_many(validated_docs)
             return self.investment_presenter.respond(validated_docs)
+        except AttributeError:
+            return self.investment_presenter.respond_with_error("arquivo csv fora do padrao esperado")
         except Exception:
             return self.investment_presenter.respond_with_error()
 
@@ -61,3 +64,10 @@ class LoadInvestments:
             if investment_dict
             else []
         )
+
+    def __validate_columns_names(self, df):
+        columns = ["corretora", "codigo", "valor_medio", "quantidade", "tipo"]
+        for column in columns:
+            if column not in df.columns:
+                raise AttributeError
+        return df
