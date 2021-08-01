@@ -17,5 +17,4 @@ def run_only_sometimes_test_yahoo_api(mock_stocks_to_update):
     api = YahooApiService()
     stocks = list(map(lambda x: x.format_as_dict(), mock_stocks_to_update))
     stocks_dict = api.get_stock_data(stocks)
-    import pdb; pdb.set_trace()
     assert stocks_dict[0].get("stock_current_price") != 0
