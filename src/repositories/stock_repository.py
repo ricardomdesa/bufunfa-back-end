@@ -45,7 +45,7 @@ class StockRepository:
 
     def get_stock_by_code(self, code: str):
         stock = db.stocks.find_one({"username": self.username, "stock_code": code})
-        return Stock(stock["stock_name"], stock["stock_code"], stock["stock_current_price"]) if stock else None
+        return Stock(stock["stock_name"], stock["stock_code"], stock["stock_current_price"]) if stock else Stock()
 
     def update_all_by_code(self, stocks: List[dict]):
         # new_stock_list = list(map(lambda stock: self.__set_date(stock, date), stock_list_dict))

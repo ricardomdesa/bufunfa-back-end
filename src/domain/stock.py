@@ -1,5 +1,5 @@
 class Stock:
-    def __init__(self, name: str, code: str, current_price: float, last_update=None):
+    def __init__(self, name: str = "", code: str = "", current_price: float = 0.0, last_update=None):
         self.name = name
         self.code = code
         self.current_price = current_price
