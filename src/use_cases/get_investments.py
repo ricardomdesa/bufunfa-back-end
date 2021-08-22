@@ -1,8 +1,11 @@
 import logging
 
+from business_exceptions.use_case_exceptions import EmptyDatabaseError
 from repositories.investment_repository import InvestmentRepository
 from repositories.stock_repository import StockRepository
 from singleton import Singleton
+
+LOGGER = logging.getLogger(__name__)
 
 
 class GetInvestments(metaclass=Singleton):
@@ -19,7 +22,20 @@ class GetInvestments(metaclass=Singleton):
     def run(self):
         try:
             investments = self.__investment_repo.get_investments_by_username()
-            updated_investments = list(
+            updated_investments = self.__get_updated_current_price(investments)
+            dict_updated_inv = [inv.format_as_dict() for inv in updated_investments]
+            self.__investment_repo.update_all_by_username(dict_updated_inv)
+            return self.__presenter.respond(dict_updated_inv)
+        except EmptyDatabaseError as error:
+            LOGGER.exception(error)
+            return self.__presenter.respond_with_error(f"Erro ao pegar investimentos: {error}")
+        except Exception as error:
+            LOGGER.error(f"Erro ao pegar investimentos: {error}")
+            return self.__presenter.respond_with_error(f"Erro ao pegar investimentos: {error}")
+
+    def __get_updated_current_price(self, investments):
+        if investments:
+            return list(
                 map(
                     lambda investment: investment.complement_with_stock_current_price(
                         self.__stock_repo.get_stock_by_code(investment.codigo).current_price
@@ -27,10 +43,4 @@ class GetInvestments(metaclass=Singleton):
                     investments,
                 )
             )
-            dict_updated_inv = list(map(lambda x: x.format_as_dict(), updated_investments))
-            self.__investment_repo.update_all_by_username(dict_updated_inv)
-            list_to_presenter = list(map(lambda investment: investment.format_as_dict(), updated_investments))
-            return self.__presenter.respond(list_to_presenter)
-        except Exception as error:
-            logging.error(f"Erro ao pegar investimentos: {error}")
-            return self.__presenter.respond_with_error(f"Erro ao pegar investimentos: {error}")
+        raise EmptyDatabaseError()

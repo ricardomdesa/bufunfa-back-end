@@ -1,36 +1,11 @@
-from domain.stock import Stock
-from tests.use_cases.mocks.mock_stock_presenter import MockStockPresenter
-from tests.use_cases.mocks.mock_stock_repo import MockStockRepo
-from tests.use_cases.mocks.stock_mock import STOCK_MOCK
+from unittest.mock import Mock
+
 from use_cases.get_stocks import GetStocks
 
 
-class MockRepo:
-    def __init__(self):
-        self.__db = STOCK_MOCK
-
-    def get_stocks(self):
-        return [
-            Stock(
-                stock["stock_name"],
-                stock["stock_code"],
-                stock["stock_current_price"],
-                stock["stock_last_update"],
-            )
-            for stock in self.__db
-        ]
-
-
-def test_run():
-    mock_repo = MockStockRepo()
-    mock_repo.set_username("teste")
-    use_case = GetStocks(mock_repo, MockStockPresenter())
-    presenter_resp = use_case.run()
-    assert presenter_resp == [
-        {
-            "stock_name": "teste",
-            "stock_code": "TEST3.SA",
-            "stock_current_price": 22.6,
-            "stock_last_update": "2021-05-22",
-        }
-    ]
+def test_run(mock_stock_repo, mock_stock):
+    mock_presenter = Mock()
+    use_case = GetStocks(mock_stock_repo, mock_presenter)
+    use_case.run()
+    response = mock_stock.format_as_dict()
+    mock_presenter.respond.assert_called_with([response])
