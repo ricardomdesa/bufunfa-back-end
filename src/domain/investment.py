@@ -4,11 +4,11 @@ from business_exceptions.invalid_investment_values_error import InvalidInvestmen
 class Investment:
     def __init__(
         self,
-        username: str,
-        corretora: str,
-        codigo: str,
-        valor_medio: float,
-        quantidade: int,
+        username: str = "",
+        corretora: str = "",
+        codigo: str = "",
+        valor_medio: float = 0.0,
+        quantidade: int = 0,
         tipo: str = "acao",
         valor_investido_atual: float = None,
         rendimento: float = None,
