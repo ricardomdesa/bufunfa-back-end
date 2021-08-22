@@ -1,7 +1,7 @@
 import logging
 
 from database.mongodb import db
-from domain.investment import Investment
+from factories.InvestmentFactory import InvestmentFactory
 
 LOGGER = logging.getLogger(__name__)
 
@@ -16,27 +16,6 @@ class InvestmentRepository:
     def add_many(self, investments: list):
         self.remove_all_by_username()
         db.investments.insert_many(investments)
-
-    def get_investments_by_username(self):
-        investments = db.investments.find({"username": self.username})
-        investments = list(map(lambda item: item, investments))
-        return (
-            [
-                Investment(
-                    investment["username"],
-                    investment["corretora"],
-                    investment["codigo"],
-                    investment["valor_medio"],
-                    investment["quantidade"],
-                    investment["tipo"],
-                    investment["valor_investido_atual"],
-                    investment["rendimento"],
-                )
-                for investment in investments
-            ]
-            if investments
-            else []
-        )
 
     def update_all_by_username(self, investments: list):
         for inv in investments:
@@ -58,25 +37,14 @@ class InvestmentRepository:
             }
             db.investments.update_one(filter, new_values)
 
+    def get_investments_by_username(self):
+        investments = db.investments.find({"username": self.username})
+        # investments = list(map(lambda item: item, investments))
+        return InvestmentFactory.build_many_from_docs_repo(investments)
+
     def get_investment_by_code(self, code: str):
         investments = db.investments.find({"username": self.username, "codigo": code})
-        return (
-            [
-                Investment(
-                    investment["username"],
-                    investment["corretora"],
-                    investment["codigo"],
-                    investment["valor_medio"],
-                    investment["quantidade"],
-                    investment["valor_investido"],
-                    investment["valor_investido_atual"],
-                    investment["rendimento"],
-                )
-                for investment in investments
-            ]
-            if investments
-            else []
-        )
+        return InvestmentFactory.build_many_from_docs_repo(investments)
 
     def remove_by_code(self, code: str):
         db.investments.delete_many({"username": self.username, "codigo": code})
