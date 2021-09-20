@@ -1,8 +1,8 @@
 from typing import List
 
-from database.mongodb import db
-from domain.stock import Stock
-from factories.StockFactory import StockFactory
+from database import db
+from domain.entities import Stock
+from factories import StockFactory
 
 
 class StockRepository:

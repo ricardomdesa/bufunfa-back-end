@@ -1,7 +1,7 @@
-from presenters.fetch_stock_prices_presenter import FetchStockPricesPresenter
-from repositories.stock_repository import StockRepository
-from stock_price_api.yahoo_api import YahooApiService
-from use_cases.fetch_current_stock_prices import FetchCurrentStockPrices
+from presenters import FetchStockPricesPresenter
+from repositories import StockRepository
+from stock_price_api import YahooApiService
+from use_cases import FetchCurrentStockPrices
 
 
 class FetchCurrentStockPriceController:

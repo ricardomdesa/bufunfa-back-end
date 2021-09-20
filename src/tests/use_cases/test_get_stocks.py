@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from use_cases.get_stocks import GetStocks
+from use_cases import GetStocks
 
 
 def test_run(mock_stock_repo, mock_stock):

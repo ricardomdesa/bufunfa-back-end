@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 import pandas
 import pytest
 
-from use_cases.load_stocks import LoadStocks
+from use_cases import LoadStocks
 
 
 @pytest.fixture

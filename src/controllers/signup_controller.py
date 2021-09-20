@@ -1,6 +1,6 @@
-from presenters.signup_presenter import SignUpPresenter
-from repositories.user_repository import UserRepository
-from use_cases.signup import SignUp
+from presenters import SignUpPresenter
+from repositories import UserRepository
+from use_cases import SignUp
 
 
 class SignUpController:

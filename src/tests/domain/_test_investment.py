@@ -1,7 +1,7 @@
 import pytest
 
-from business_exceptions.invalid_investment_values_error import InvalidInvestmentValuesError
-from domain.investment import Investment
+from business_exceptions import InvalidInvestmentValuesError
+from domain.entities import Investment
 
 
 def test_investment_domain_valid_values():

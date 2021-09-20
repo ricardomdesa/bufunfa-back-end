@@ -1,10 +1,8 @@
 from datetime import timedelta
 
-from presenters.authentication_presenter import AuthenticationPresenter
-from repositories.user_repository import UserRepository
-
-# from singleton import Singleton
-from utils.authentication_utils import verify_password
+from presenters import AuthenticationPresenter
+from repositories import UserRepository
+from utils import verify_password
 
 
 class AuthenticationController:

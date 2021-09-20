@@ -1,6 +1,6 @@
-from presenters.get_stock_presenter import GetStockPresenter
-from repositories.stock_repository import StockRepository
-from use_cases.get_stocks import GetStocks
+from presenters import GetStockPresenter
+from repositories import StockRepository
+from use_cases import GetStocks
 
 
 class GetStockController:

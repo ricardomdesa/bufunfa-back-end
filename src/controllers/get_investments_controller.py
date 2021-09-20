@@ -1,9 +1,8 @@
 import logging
 
-from presenters.get_investment_presenter import GetInvestmentPresenter
-from repositories.investment_repository import InvestmentRepository
-from repositories.stock_repository import StockRepository
-from use_cases.get_investments import GetInvestments
+from presenters import GetInvestmentPresenter
+from repositories import InvestmentRepository, StockRepository
+from use_cases import GetInvestments
 
 LOGGER = logging.getLogger(__name__)
 

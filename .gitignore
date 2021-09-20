@@ -13,3 +13,5 @@ src/tests/files/*.xlsx
 .idea
 
 .coverage
+
+.vscode

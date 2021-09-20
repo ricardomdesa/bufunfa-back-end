@@ -1,6 +1,6 @@
-from presenters.load_investment_presenter import LoadInvestmentPresenter
-from repositories.investment_repository import InvestmentRepository
-from use_cases.load_investments import LoadInvestments
+from presenters import LoadInvestmentPresenter
+from repositories import InvestmentRepository
+from use_cases import LoadInvestments
 
 
 class LoadInvestmentController:

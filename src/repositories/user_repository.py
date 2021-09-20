@@ -1,5 +1,5 @@
-from database.mongodb import db
-from domain.user import User
+from database import db
+from domain.entities import User
 
 
 class UserRepository:

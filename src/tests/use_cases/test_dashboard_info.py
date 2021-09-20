@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from use_cases.get_dashboard_info import GetDashboardInfo
+from use_cases import GetDashboardInfo
 
 INVESTMENT_MOCK_TWO = [
     {
