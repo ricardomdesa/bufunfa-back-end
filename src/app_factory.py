@@ -2,14 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_login import LoginManager
 
-from environment import SECRET, WEBAPP_URL
+from settings import get_settings
 
 
 def app_factory():
 
+    settings = get_settings()
+
     app = FastAPI()
 
-    origins = {WEBAPP_URL}
+    origins = {settings.WEBAPP_URL}
 
     app.add_middleware(
         CORSMiddleware,
@@ -24,5 +26,5 @@ def app_factory():
         ],
     )
 
-    login_manager = LoginManager(SECRET, "/login")
+    login_manager = LoginManager(settings.SECRET, "/login")
     return app, login_manager
