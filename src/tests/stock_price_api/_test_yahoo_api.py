@@ -1,6 +1,6 @@
 import pytest
 
-from domain.stock import Stock
+from domain.entities.stock import Stock
 from stock_price_api.yahoo_api import YahooApiService
 
 

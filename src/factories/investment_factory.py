@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from domain.investment import Investment
+from domain.entities.investment import Investment
 from singleton import Singleton
 
 

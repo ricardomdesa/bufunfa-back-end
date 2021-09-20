@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
-from domain.stock import Stock
-from use_cases.fetch_current_stock_prices import FetchCurrentStockPrices
+from domain.entities import Stock
+from use_cases import FetchCurrentStockPrices
 
 MOCK_STOCKS_TO_UPDATE_FROM_REPO = [
     Stock(name="Btg Pactual", code="BPAC11.SA", current_price=1),

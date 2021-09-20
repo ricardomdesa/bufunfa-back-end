@@ -3,7 +3,7 @@ from tempfile import SpooledTemporaryFile
 
 import pandas as pd
 
-from domain.investment import Investment
+from domain.entities.investment import Investment
 
 LOGGER = logging.getLogger(__name__)
 

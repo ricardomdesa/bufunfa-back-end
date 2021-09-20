@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 import pandas
 import pytest
 
-from use_cases.load_investments import LoadInvestments
+from use_cases import LoadInvestments
 
 
 @pytest.fixture

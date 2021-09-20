@@ -1,7 +1,7 @@
 import copy
 
-from domain.user import User
-from use_cases.signup import SignUp
+from domain.entities import User
+from use_cases import SignUp
 
 
 class MockSignUpPresenter:

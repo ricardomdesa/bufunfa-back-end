@@ -4,15 +4,17 @@ from fastapi import Body, Depends, File, UploadFile
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app_factory import app_factory
-from controllers.authentication_controller import AuthenticationController
-from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
-from controllers.get_dashboard_info_controller import GetDashboardInfoController
-from controllers.get_investments_controller import GetInvestmentController
-from controllers.get_stock_controller import GetStockController
-from controllers.load_investment_controller import LoadInvestmentController
-from controllers.signup_controller import SignUpController
-from controllers.stock_controller import StockController
-from repositories.user_repository import UserRepository
+from controllers import (
+    AuthenticationController,
+    FetchCurrentStockPriceController,
+    GetDashboardInfoController,
+    GetInvestmentController,
+    GetStockController,
+    LoadInvestmentController,
+    SignUpController,
+    StockController,
+)
+from repositories import UserRepository
 
 LOGGER = logging.getLogger(__name__)
 

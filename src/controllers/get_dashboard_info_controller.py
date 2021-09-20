@@ -1,8 +1,8 @@
 import logging
 
-from presenters.dashboard_info_presenter import DashboardInfoPresenter
-from repositories.investment_repository import InvestmentRepository
-from use_cases.get_dashboard_info import GetDashboardInfo
+from presenters import DashboardInfoPresenter
+from repositories import InvestmentRepository
+from use_cases import GetDashboardInfo
 
 LOGGER = logging.getLogger(__name__)
 

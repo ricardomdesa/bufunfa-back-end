@@ -2,8 +2,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from business_exceptions.use_case_exceptions import EmptyDatabaseError
-from use_cases.get_investments import GetInvestments
+from business_exceptions import EmptyDatabaseError
+from use_cases import GetInvestments
 
 INVESTMENT_MOCK = [
     {

@@ -3,8 +3,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from factories.InvestmentFactory import InvestmentFactory
-from factories.StockFactory import StockFactory
+from factories import InvestmentFactory, StockFactory
 
 
 @pytest.fixture

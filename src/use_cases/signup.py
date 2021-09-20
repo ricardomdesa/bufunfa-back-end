@@ -1,9 +1,9 @@
 import logging
 
-from business_exceptions.invalid_user_values_error import InvalidUserValuesError
-from domain.user import User
+from business_exceptions import InvalidUserValuesError
+from domain.entities import User
 from singleton import Singleton
-from utils.authentication_utils import hash_password
+from utils import hash_password
 
 
 class SignUp(metaclass=Singleton):

@@ -1,7 +1,7 @@
 import logging
 
-from database.mongodb import db
-from factories.InvestmentFactory import InvestmentFactory
+from database import db
+from factories import InvestmentFactory
 
 LOGGER = logging.getLogger(__name__)
 

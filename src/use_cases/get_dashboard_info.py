@@ -1,7 +1,7 @@
 import logging
 from functools import reduce
 
-from domain.dashboard_info import DashboardInfo
+from domain.entities import DashboardInfo
 from singleton import Singleton
 
 

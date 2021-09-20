@@ -1,6 +1,6 @@
-from presenters.stock_presenter import StockPresenter
-from repositories.stock_repository import StockRepository
-from use_cases.load_stocks import LoadStocks
+from presenters import StockPresenter
+from repositories import StockRepository
+from use_cases import LoadStocks
 
 
 class StockController:

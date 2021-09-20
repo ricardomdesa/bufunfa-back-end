@@ -1,8 +1,7 @@
 import logging
 
-from business_exceptions.use_case_exceptions import EmptyDatabaseError
-from repositories.investment_repository import InvestmentRepository
-from repositories.stock_repository import StockRepository
+from business_exceptions import EmptyDatabaseError
+from repositories import InvestmentRepository, StockRepository
 from singleton import Singleton
 
 LOGGER = logging.getLogger(__name__)
