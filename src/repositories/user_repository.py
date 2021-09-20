@@ -1,5 +1,5 @@
 from database import db
-from domain import User
+from domain.entities import User
 
 
 class UserRepository:

@@ -1,7 +1,7 @@
 from typing import List
 
 from database import db
-from domain import Stock
+from domain.entities import Stock
 from factories import StockFactory
 
 
