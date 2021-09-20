@@ -1,10 +1,9 @@
 import logging
 
-from fastapi import Body, Depends, FastAPI, File, UploadFile
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Body, Depends, File, UploadFile
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi_login import LoginManager
 
+from app_factory import app_factory
 from controllers.authentication_controller import AuthenticationController
 from controllers.fetch_current_stock_price_controller import FetchCurrentStockPriceController
 from controllers.get_dashboard_info_controller import GetDashboardInfoController
@@ -13,30 +12,12 @@ from controllers.get_stock_controller import GetStockController
 from controllers.load_investment_controller import LoadInvestmentController
 from controllers.signup_controller import SignUpController
 from controllers.stock_controller import StockController
-from environment import SECRET, WEBAPP_URL
 from repositories.user_repository import UserRepository
 
 LOGGER = logging.getLogger(__name__)
 
 
-app = FastAPI()
-
-origins = {WEBAPP_URL}
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=[
-        "X-Content-Filename",
-        "Content-Disposition",
-        "application/x-www-form-urlencoded",
-    ],
-)
-
-login_manager = LoginManager(SECRET, "/login")
+app, login_manager = app_factory()
 
 
 @login_manager.user_loader
